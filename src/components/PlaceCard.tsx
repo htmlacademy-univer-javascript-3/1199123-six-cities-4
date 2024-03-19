@@ -1,9 +1,11 @@
 import type { Place } from '../types';
 
 function PlaceCard(props: Place): JSX.Element {
+  const { title, preview, type, costPerNight, rating, isFavourites, isPremium } = props;
+
   return (
     <article className="cities__card place-card">
-      {props.isPremium && (
+      {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
@@ -12,7 +14,7 @@ function PlaceCard(props: Place): JSX.Element {
         <a href="#">
           <img
             className="place-card__image"
-            src={props.preview}
+            src={preview}
             width="260"
             height="200"
             alt="Place image"
@@ -22,12 +24,12 @@ function PlaceCard(props: Place): JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{props.costPerNight}</b>
+            <b className="place-card__price-value">&euro;{costPerNight}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
             className={`place-card__bookmark-button ${
-              props.isFavourites ? 'place-card__bookmark-button--active' : ''
+              isFavourites ? 'place-card__bookmark-button--active' : ''
             } button`}
             type="button"
           >
@@ -35,21 +37,21 @@ function PlaceCard(props: Place): JSX.Element {
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">
-              {props.isFavourites ? 'In bookmarks' : 'To bookmarks'}
+              {isFavourites ? 'In bookmarks' : 'To bookmarks'}
             </span>
           </button>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${props.rating * 20}%` }}></span>
+            <span style={{ width: `${rating * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{props.title}</a>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">
-          {props.type}
+          {type}
         </p>
       </div>
     </article>
