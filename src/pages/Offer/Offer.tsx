@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export function Offer(): JSX.Element {
   return (
     <div className="page">
@@ -5,7 +7,7 @@ export function Offer(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link to='/' className="header__logo-link">
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -13,7 +15,7 @@ export function Offer(): JSX.Element {
                   width="81"
                   height="41"
                 />
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -26,7 +28,9 @@ export function Offer(): JSX.Element {
                     <span className="header__user-name user__name">
                     Oliver.conner@gmail.com
                     </span>
-                    <span className="header__favorite-count">3</span>
+                    <Link to="/favorites">
+                      <span className="header__favorite-count">3</span>
+                    </Link>
                   </a>
                 </li>
                 <li className="header__nav-item">

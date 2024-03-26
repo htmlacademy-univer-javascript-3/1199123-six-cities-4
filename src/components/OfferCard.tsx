@@ -1,7 +1,12 @@
-import type { Place } from '../types';
+import { Link } from 'react-router-dom';
+import { OfferType } from '../types/offer';
 
-function PlaceCard(props: Place): JSX.Element {
-  const { title, preview, type, costPerNight, rating, isFavourites, isPremium } = props;
+type OfferCardProps = {
+  offer: OfferType;
+};
+
+function OfferCard({ offer }: OfferCardProps): JSX.Element {
+  const { id, title, preview, type, costPerNight, rating, isFavourites, isPremium } = offer;
 
   return (
     <article className="cities__card place-card">
@@ -48,7 +53,7 @@ function PlaceCard(props: Place): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">
           {type}
@@ -58,4 +63,4 @@ function PlaceCard(props: Place): JSX.Element {
   );
 }
 
-export default PlaceCard;
+export default OfferCard;

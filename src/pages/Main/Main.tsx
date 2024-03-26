@@ -1,19 +1,22 @@
-import PlaceCard from '../../components/PlaceCard';
+import { Link } from 'react-router-dom';
+import OfferList from '../../components/OfferList';
+import { OfferType } from '../../types/offer';
 
 type MainScreenProps = {
   placesToStay: number;
+  offers: OfferType[];
 }
 
-export function Main({placesToStay}: MainScreenProps): JSX.Element {
+export function Main({placesToStay, offers}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
+              <Link to='/' className="header__logo-link header__logo-link--active">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -22,7 +25,9 @@ export function Main({placesToStay}: MainScreenProps): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <Link to="/favorites">
+                      <span className="header__favorite-count">3</span>
+                    </Link>
                   </a>
                 </li>
                 <li className="header__nav-item">
@@ -95,51 +100,7 @@ export function Main({placesToStay}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard
-                  title={'Beautiful &amp; luxurious apartment at great location'}
-                  preview={'img/apartment-01.jpg'}
-                  type={'apartment'}
-                  costPerNight={120}
-                  rating={4}
-                  isPremium
-                  isFavourites={false}
-                />
-                <PlaceCard
-                  title={'Wood and stone place'}
-                  preview={'img/room.jpg'}
-                  type={'room'}
-                  costPerNight={80}
-                  rating={4}
-                  isPremium={false}
-                  isFavourites
-                />
-                <PlaceCard
-                  title={'Canal View Prinsengracht'}
-                  preview={'img/apartment-02.jpg'}
-                  type={'apartment'}
-                  costPerNight={132}
-                  rating={4}
-                  isPremium={false}
-                  isFavourites={false}
-                />
-                <PlaceCard
-                  title={'Nice, cozy, warm big bed apartment'}
-                  preview={'img/apartment-03.jpg'}
-                  type={'apartment'}
-                  costPerNight={180}
-                  rating={5}
-                  isPremium
-                  isFavourites={false}
-                />
-                <PlaceCard
-                  title={'Wood and stone place'}
-                  preview={'img/room.jpg'}
-                  type={'room'}
-                  costPerNight={80}
-                  rating={4}
-                  isPremium={false}
-                  isFavourites
-                />
+                <OfferList offerCards={offers}/>
               </div>
             </section>
             <div className="cities__right-section">
