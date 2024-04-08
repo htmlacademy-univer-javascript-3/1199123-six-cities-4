@@ -9,10 +9,10 @@ type FavouritesPageProps = {
 export function Favourites({favouritesList}: FavouritesPageProps): JSX.Element {
   const favouritesMapped = favouritesList.reduce(
     (accumulator: Record<string, OfferType[]>, offer: OfferType) => {
-      if (offer.city in accumulator) {
-        accumulator[offer.city].push(offer);
+      if (offer.city.name in accumulator) {
+        accumulator[offer.city.name].push(offer);
       } else {
-        accumulator[offer.city] = [offer];
+        accumulator[offer.city.name] = [offer];
       }
       return accumulator;
     },

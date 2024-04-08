@@ -12,7 +12,12 @@ export const offers: OfferType[] = [
     rating: 4,
     isFavourites: false,
     isPremium: true,
-    city: 'Amsterdam',
+    city: {
+      name: 'Amsterdam',
+      longitude: 4.85309666406198,
+      latitude: 52.3909553943508,
+      zoom: 5
+    },
     reviews: [reviews[0]]
   },
   {
@@ -24,7 +29,12 @@ export const offers: OfferType[] = [
     rating: 4,
     isFavourites: true,
     isPremium: false,
-    city: 'Amsterdam',
+    city: {
+      name: 'Amsterdam',
+      longitude: 4.85309666406198,
+      latitude: 52.3609553943508,
+      zoom: 5
+    },
     reviews: [reviews[0]]
   },
   {
@@ -36,7 +46,12 @@ export const offers: OfferType[] = [
     rating: 4,
     isFavourites: false,
     isPremium: false,
-    city: 'Amsterdam',
+    city: {
+      name: 'Amsterdam',
+      longitude: 4.939309666406198,
+      latitude: 52.3809553943508,
+      zoom: 5
+    },
     reviews: [reviews[0]]
   },
   {
@@ -48,7 +63,12 @@ export const offers: OfferType[] = [
     rating: 5,
     isFavourites: false,
     isPremium: true,
-    city: 'Amsterdam',
+    city: {
+      name: 'Amsterdam',
+      longitude: 4.939309666406198,
+      latitude: 52.3809553943508,
+      zoom: 5
+    },
     reviews: [reviews[0]]
   }
 ];
