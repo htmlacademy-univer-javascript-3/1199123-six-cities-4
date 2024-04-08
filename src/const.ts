@@ -1,5 +1,5 @@
 const Settings = {
-  PlacesToStay: 5
+  PlacesToStay: 4
 };
 
 export default Settings;
