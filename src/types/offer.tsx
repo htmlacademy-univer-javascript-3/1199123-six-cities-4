@@ -1,4 +1,5 @@
 import { Review } from '../types/review';
+import { City } from './city';
 
 export type OfferType = {
   id: number;
@@ -10,6 +11,7 @@ export type OfferType = {
   rating: 1 | 2 | 3 | 4 | 5;
   isFavourites?: boolean;
   isPremium?: boolean;
-  city: string;
+  city: City;
   reviews: Review[];
+  onListItemHover?: (listItemName: string) => void;
 }

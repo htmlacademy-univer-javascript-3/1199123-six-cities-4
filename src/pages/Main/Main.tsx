@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import OfferList from '../../components/OfferList';
 import { OfferType } from '../../types/offer';
+import { Map } from '../../components/map/map';
+import { Point, Points } from '../../types/point';
+import { useState } from 'react';
 
 type MainScreenProps = {
   placesToStay: number;
@@ -8,6 +11,17 @@ type MainScreenProps = {
 }
 
 export function Main({placesToStay, offers}: MainScreenProps): JSX.Element {
+  const points: Points = [];
+  offers.map((o) => o.city).forEach((point) => {
+    points.push(point);
+  });
+
+  const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(points[0]);
+  const handleListItemHover = (itemName: string) => {
+    const currentPoint = points.find((point) => point.name === itemName);
+    setSelectedPoint(currentPoint);
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -100,11 +114,13 @@ export function Main({placesToStay, offers}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offerCards={offers}/>
+                <OfferList offerCards={offers.map((offer) => ({...offer, onListItemHover: handleListItemHover}))}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={{name: 'Amsterdam', longitude: 4.85309666406198, latitude: 52.3909553943508, zoom: 1}} points={offers} selectedPoint={selectedPoint}></Map>;
+              </section>
             </div>
           </div>
         </div>
