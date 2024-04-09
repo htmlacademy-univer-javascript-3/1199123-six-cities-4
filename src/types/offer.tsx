@@ -2,7 +2,7 @@ import { Review } from '../types/review';
 import { City } from './city';
 
 export type OfferType = {
-  id: number;
+  id: string;
   title: string;
   preview: string;
   description?: string;
@@ -13,5 +13,6 @@ export type OfferType = {
   isPremium?: boolean;
   city: City;
   reviews: Review[];
+  offersNearby: OfferType[];
   onListItemHover?: (listItemName: string) => void;
 }
