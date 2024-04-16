@@ -4,6 +4,7 @@ import { OfferType } from '../../types/offer';
 import { Map } from '../../components/map/map';
 import { Point, Points } from '../../types/point';
 import { useState } from 'react';
+import 'leaflet/dist/leaflet.css';
 
 type MainScreenProps = {
   placesToStay: number;
