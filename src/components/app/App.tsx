@@ -8,18 +8,17 @@ import { PrivateRoute } from '../private-route/private-route.tsx';
 import { OfferType } from '../../types/offer.tsx';
 
 type AppScreenProps = {
-  placesToStay: number;
   offers: OfferType[];
 }
 
-function App({placesToStay, offers}: AppScreenProps): JSX.Element {
+function App({offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main placesToStay={placesToStay} offers={offers}/>} />
+        <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/favorites" element={<PrivateRoute><Favourites favouritesList={offers.filter((obj) => obj.isFavourites)}/></PrivateRoute>} />
-        <Route path="offer/:id" element={<Offer offers={offers}/>}></Route>
+        <Route path="offer/:id" element={<Offer offers={offers}/>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

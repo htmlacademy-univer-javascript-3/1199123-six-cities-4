@@ -1,18 +1,22 @@
 import { Link } from 'react-router-dom';
-import OfferList from '../../components/OfferList';
-import { OfferType } from '../../types/offer';
+import OfferList from '../../components/offers/OfferList';
 import { Map } from '../../components/map/map';
 import { Point, Points } from '../../types/point';
 import { useState } from 'react';
+import 'leaflet/dist/leaflet.css';
+import { store } from '../../store';
+import { Cities } from '../../const';
+import LocationsList from '../../components/locations/LocationsList';
 
-type MainScreenProps = {
-  placesToStay: number;
-  offers: OfferType[];
-}
 
-export function Main({placesToStay, offers}: MainScreenProps): JSX.Element {
+export function Main(): JSX.Element {
+  const [currentState, setCurrentState] = useState(store.getState());
+  const handleCurrentState = () => {
+    setCurrentState(store.getState());
+  };
+
   const points: Points = [];
-  offers.map((o) => o.city).forEach((point) => {
+  currentState.offers.map((o) => o.city).forEach((point) => {
     points.push(point);
   });
 
@@ -59,45 +63,14 @@ export function Main({placesToStay, offers}: MainScreenProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <LocationsList cities={Cities} currentState={currentState} handleCurrentState={handleCurrentState}></LocationsList>
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesToStay} places to stay in Amsterdam</b>
+              <b className="places__found">{currentState.offers.length.toString()} places to stay in {currentState.city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -114,12 +87,12 @@ export function Main({placesToStay, offers}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offerCards={offers.map((offer) => ({...offer, onListItemHover: handleListItemHover}))}/>
+                <OfferList offerCards={currentState.offers.map((offer) => ({...offer, onListItemHover: handleListItemHover}))}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={{name: 'Amsterdam', longitude: 4.85309666406198, latitude: 52.3909553943508, zoom: 1}} points={offers} selectedPoint={selectedPoint}></Map>;
+                <Map city={{name: 'Amsterdam', longitude: 4.85309666406198, latitude: 52.3909553943508, zoom: 1}} points={currentState.offers} selectedPoint={selectedPoint}></Map>;
               </section>
             </div>
           </div>

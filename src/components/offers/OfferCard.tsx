@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { OfferType } from '../types/offer';
+import { OfferType } from '../../types/offer';
 import { useState } from 'react';
 
 type OfferCardProps = {
@@ -9,7 +9,7 @@ type OfferCardProps = {
 function OfferCard({ offer }: OfferCardProps): JSX.Element {
   const { id, title, preview, type, costPerNight, rating, isFavourites, isPremium, onListItemHover} = offer;
 
-  const [activeOffer, setActiveOffer] = useState<number>(0);
+  const [activeOffer, setActiveOffer] = useState<string>('');
   function handleMouseOver() {
     if (onListItemHover) {
       onListItemHover(title);

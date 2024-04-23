@@ -1,11 +1,12 @@
-import { Review } from '../types/review';
+import { Review } from '../../types/review';
+import { formatDate, getMonthYear } from '../../utils';
 
 type ReviewCommentProps = {
   review: Review;
 };
 
 export function ReviewComment({review}: ReviewCommentProps): JSX.Element {
-  const { author, rating, date, text } = review;
+  const { author, rating, text } = review;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -24,7 +25,7 @@ export function ReviewComment({review}: ReviewCommentProps): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">{text}</p>
-        <time className="reviews__time" dateTime={date.toISOString().split('T')[0]}>April 2019</time>
+        <time className="reviews__time" dateTime={formatDate(review.date)}>{getMonthYear(review.date)}</time>
       </div>
     </li>
   );

@@ -1,5 +1,5 @@
 import { OfferType } from '../../types/offer';
-import OfferCard from '../../components/OfferCard';
+import OfferCard from '../../components/offers/OfferCard';
 import { Link } from 'react-router-dom';
 
 type FavouritesPageProps = {
