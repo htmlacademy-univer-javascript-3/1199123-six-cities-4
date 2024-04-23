@@ -1,9 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
-import { ReviewsList } from '../../components/ReviewsList';
+import { ReviewsList } from '../../components/reviews/ReviewsList';
 import { OfferType } from '../../types/offer';
 import { NotFoundPage } from '../NotFoundScreen/NotFoundScreen';
 import { Map } from '../../components/map/map';
-import { OffersNearby } from '../../components/OffersNearby';
+import { OffersNearby } from '../../components/offers/OffersNearby';
 
 type OfferProps = {
   offers: OfferType[];

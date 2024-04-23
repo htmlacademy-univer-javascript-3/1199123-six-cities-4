@@ -1,12 +1,12 @@
-import { OfferType } from '../types/offer';
+import { OfferType } from '../../types/offer';
 import OfferCard from './OfferCard';
 
-type offersNearbyProps = {
+type OffersNearbyProps = {
   offersNearby: OfferType[];
 }
 
 
-export function OffersNearby({ offersNearby }: offersNearbyProps): JSX.Element {
+export function OffersNearby({ offersNearby }: OffersNearbyProps): JSX.Element {
   return (
     <div className="container">
       {offersNearby.length > 0 && (

@@ -129,5 +129,23 @@ export const offers: OfferType[] = [
     },
     reviews: [reviews[0]],
     offersNearby: []
+  },
+  {
+    id: '5',
+    title: 'Wood and stone place',
+    preview: 'img/apartment-02.jpg',
+    type: 'room',
+    costPerNight: 80,
+    rating: 4,
+    isFavourites: true,
+    isPremium: false,
+    city: {
+      name: 'Amsterdam',
+      longitude: 4.85309666406198,
+      latitude: 52.3609553943508,
+      zoom: 5
+    },
+    reviews: [reviews[0]],
+    offersNearby: []
   }
 ];
