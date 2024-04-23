@@ -5,10 +5,9 @@ import { OfferType } from '../../types/offer';
 type LocationItemProps = {
   city: string;
   currentState: {city: string; offers: OfferType[]};
-  handleCurrentState: () => void;
 };
 
-function LocationItem({ city, currentState, handleCurrentState}: LocationItemProps): JSX.Element {
+function LocationItem({ city, currentState }: LocationItemProps): JSX.Element {
   const dispatch = useDispatch();
 
   return (
@@ -17,7 +16,6 @@ function LocationItem({ city, currentState, handleCurrentState}: LocationItemPro
         className={currentState.city === city ? 'locationsitem-link tabsitem tabs__item--active' : 'locationsitem-link tabsitem'}
         href="#" onClick={() => {
           dispatch(updateOffers(city));
-          handleCurrentState();
         }}
       >
         <span>{city}</span>
