@@ -13,7 +13,7 @@ function LocationItem({ city, currentState }: LocationItemProps): JSX.Element {
   return (
     <li className="locations__item">
       <a
-        className={currentState.city === city ? 'locationsitem-link tabsitem tabs__item--active' : 'locationsitem-link tabsitem'}
+        className={`locationsitem-link tabsitem ${currentState.city === city ? 'tabs__item--active' : ''}`}
         href="#" onClick={() => {
           dispatch(updateOffers(city));
         }}
