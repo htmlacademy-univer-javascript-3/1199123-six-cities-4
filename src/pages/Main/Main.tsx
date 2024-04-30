@@ -1,19 +1,18 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import OfferList from '../../components/offers/OfferList';
 import { Map } from '../../components/map/map';
 import { Point, Points } from '../../types/point';
-import { useState } from 'react';
-import 'leaflet/dist/leaflet.css';
 import { store } from '../../store';
 import { Cities } from '../../const';
 import LocationsList from '../../components/locations/LocationsList';
-
+import { FilterType } from '../../const';
+import { FilterForm } from '../../components/filters/FilterForm';
+import 'leaflet/dist/leaflet.css';
 
 export function Main(): JSX.Element {
-  const [currentState, setCurrentState] = useState(store.getState());
-  const handleCurrentState = () => {
-    setCurrentState(store.getState());
-  };
+  const currentState = useSelector(() => store.getState());
 
   const points: Points = [];
   currentState.offers.map((o) => o.city).forEach((point) => {
@@ -24,6 +23,11 @@ export function Main(): JSX.Element {
   const handleListItemHover = (itemName: string) => {
     const currentPoint = points.find((point) => point.name === itemName);
     setSelectedPoint(currentPoint);
+  };
+
+  const [currentSortType, setCurrentSortType] = useState('Popular');
+  const handleCurrentSortType = (updatedSortType: string) => {
+    setCurrentSortType(updatedSortType);
   };
 
   return (
@@ -63,7 +67,7 @@ export function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList cities={Cities} currentState={currentState} handleCurrentState={handleCurrentState}></LocationsList>
+            <LocationsList cities={Cities} currentState={currentState}></LocationsList>
           </section>
         </div>
         <div className="cities">
@@ -71,23 +75,9 @@ export function Main(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{currentState.offers.length.toString()} places to stay in {currentState.city}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
+              <FilterForm filterTypes={Object.values(FilterType)} handleOfferSort={handleCurrentSortType}></FilterForm>
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offerCards={currentState.offers.map((offer) => ({...offer, onListItemHover: handleListItemHover}))}/>
+                <OfferList offerCards={currentState.offers.map((offer) => ({...offer, onListItemHover: handleListItemHover}))} sortedBy={currentSortType}/>
               </div>
             </section>
             <div className="cities__right-section">
