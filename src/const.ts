@@ -11,6 +11,11 @@ export enum FilterType {
   TOP_RATED = 'Top rated first'
 }
 
+export enum AuthorizationStatus {
+  AUTHORIZED = 'AUTHORIZED',
+  NOT_AUTHORIZED = 'NOT_AUTHORIZED'
+}
+
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 

@@ -1,7 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setLoadingStatus, updateCity, updateOffer, updateOffers, updateReviewComments } from './action';
+import { setLoadingStatus, setUserDataLoadingStatus, updateAuthorizationStatus, updateCity, updateLogin, updateOffer, updateOffers, updateReviewComments } from './action';
 import { CompleteOffer, OfferType } from '../types/offer';
 import { Review } from '../types/review';
+import { AuthorizationStatus } from '../const';
 
 
 export type InitialState = {
@@ -11,6 +12,9 @@ export type InitialState = {
   isLoading: boolean;
   currentOffer: CompleteOffer | undefined;
   currentOfferReviews: Review[];
+  authorizationStatus: AuthorizationStatus;
+  isUserDataLoading: boolean;
+  userLogin: string | null;
 }
 
 const initialState: InitialState = {
@@ -19,7 +23,10 @@ const initialState: InitialState = {
   cityOffers: [],
   isLoading: true,
   currentOffer: undefined,
-  currentOfferReviews: []
+  currentOfferReviews: [],
+  authorizationStatus: AuthorizationStatus.NOT_AUTHORIZED,
+  isUserDataLoading: false,
+  userLogin: null
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -40,6 +47,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(updateReviewComments, (state, action) => {
       state.currentOfferReviews = action.payload;
+    })
+    .addCase(updateAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserDataLoadingStatus, (state, action) => {
+      state.isUserDataLoading = action.payload;
+    })
+    .addCase(updateLogin, (state, action) => {
+      state.userLogin = action.payload;
     });
 });
 
