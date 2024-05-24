@@ -1,4 +1,4 @@
-import { User } from './person';
+import { User } from './user';
 
 export type Review = {
   id: string;
