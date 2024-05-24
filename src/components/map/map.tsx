@@ -36,8 +36,8 @@ export function Map(props: MapProps): JSX.Element {
       const markerLayer = layerGroup().addTo(map);
       points.forEach((point) => {
         const marker = new Marker({
-          lat: point.city.latitude,
-          lng: point.city.longitude
+          lat: point.city.location.latitude,
+          lng: point.city.location.longitude
         });
 
         marker

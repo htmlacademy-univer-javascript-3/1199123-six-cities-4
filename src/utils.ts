@@ -1,10 +1,14 @@
-export function formatDate(date: Date): string {
-  const offset = date.getTimezoneOffset();
-  date = new Date(date.getTime() - offset * 60 * 1000);
-  return date.toISOString().split('T')[0];
+export function formatDate(date: string): string {
+  const newDate = new Date(date);
+
+  const day = String(newDate.getUTCDate()).padStart(2, '0');
+  const month = String(newDate.getUTCMonth() + 1).padStart(2, '0');
+  const year = newDate.getUTCFullYear();
+
+  return `${day}-${month}-${year}`;
 }
 
-export function getMonthYear(date: Date) {
+export function getMonthYear(date: string) {
   const formattedDate = formatDate(date);
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',

@@ -1,21 +1,26 @@
-import { useDispatch } from 'react-redux';
-import { updateOffers } from '../../store/action';
-import { OfferType } from '../../types/offer';
+import { updateCity } from '../../store/action';
+import { store } from '../../store';
+import { useAppDispatch } from '../hooks';
+import { InitialState } from '../../store/reducer';
 
 type LocationItemProps = {
   city: string;
-  currentState: {city: string; offers: OfferType[]};
+  currentCity: string;
+  setCurrentCity: (offer: InitialState) => void;
 };
 
-function LocationItem({ city, currentState }: LocationItemProps): JSX.Element {
-  const dispatch = useDispatch();
-
+function LocationItem({ city, currentCity, setCurrentCity }: LocationItemProps): JSX.Element {
+  const handleCurrentState = () => {
+    setCurrentCity(store.getState());
+  };
+  const dispatch = useAppDispatch();
   return (
     <li className="locations__item">
       <a
-        className={`locationsitem-link tabsitem ${currentState.city === city ? 'tabs__item--active' : ''}`}
+        className={`locationsitem-link tabsitem ${currentCity === city ? 'tabs__item--active' : ''}`}
         href="#" onClick={() => {
-          dispatch(updateOffers(city));
+          dispatch(updateCity(city));
+          handleCurrentState();
         }}
       >
         <span>{city}</span>

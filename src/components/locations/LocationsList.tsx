@@ -1,16 +1,17 @@
+import { InitialState } from '../../store/reducer';
 import LocationItem from './LocationItem';
-import { OfferType } from '../../types/offer';
 
 type LocationsListProps = {
   cities: string[];
-  currentState: {city: string; offers: OfferType[]};
+  currentCity: string;
+  setCurrentCity: (offer: InitialState) => void;
 };
 
-function LocationsList({cities, currentState}: LocationsListProps) {
+function LocationsList({cities, currentCity, setCurrentCity}: LocationsListProps) {
   return (
     <ul className="locations__list tabs__list">
       {cities.map((city) => (
-        <LocationItem key={city} city={city} currentState={{city: currentState.city, offers: currentState.offers}}></LocationItem>
+        <LocationItem key={city} city={city} currentCity={currentCity} setCurrentCity={setCurrentCity}/>
       ))}
     </ul>
   );

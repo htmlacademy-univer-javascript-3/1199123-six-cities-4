@@ -1,17 +1,45 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { offers } from '../mocks/offers';
-import { updateOffers } from './action';
+import { setLoadingStatus, updateCity, updateOffer, updateOffers, updateReviewComments } from './action';
+import { CompleteOffer, OfferType } from '../types/offer';
+import { Review } from '../types/review';
 
-const initialState = {
+
+export type InitialState = {
+  city: string;
+  offers: OfferType[];
+  cityOffers: OfferType[];
+  isLoading: boolean;
+  currentOffer: CompleteOffer | undefined;
+  currentOfferReviews: Review[];
+}
+
+const initialState: InitialState = {
   city: 'Paris',
-  offers: offers
+  offers: [],
+  cityOffers: [],
+  isLoading: true,
+  currentOffer: undefined,
+  currentOfferReviews: []
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(updateOffers, (state, action) => {
+    .addCase(updateCity, (state, action) => {
       state.city = action.payload;
-      state.offers = offers;
+      state.cityOffers = state.offers.filter((obj) => obj.city.name === state.city);
+    })
+    .addCase(updateOffers, (state, action) => {
+      state.offers = action.payload;
+      state.cityOffers = state.offers.filter((obj) => obj.city.name === state.city);
+    })
+    .addCase(setLoadingStatus, (state, action) => {
+      state.isLoading = action.payload;
+    })
+    .addCase(updateOffer, (state, action) => {
+      state.currentOffer = action.payload;
+    })
+    .addCase(updateReviewComments, (state, action) => {
+      state.currentOfferReviews = action.payload;
     });
 });
 

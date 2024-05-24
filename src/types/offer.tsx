@@ -1,18 +1,33 @@
 import { Review } from '../types/review';
 import { City } from './city';
 
+
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
 export type OfferType = {
   id: string;
   title: string;
-  preview: string;
-  description?: string;
-  type: 'apartment' | 'room' | 'house' | 'hotel';
-  costPerNight: number;
-  rating: 1 | 2 | 3 | 4 | 5;
-  isFavourites?: boolean;
-  isPremium?: boolean;
+  type: string;
+  price: number;
   city: City;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
   reviews: Review[];
-  offersNearby: OfferType[];
   onListItemHover?: (listItemName: string) => void;
+}
+
+export type CompleteOffer = OfferType & {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  images: string[];
+  maxAdults: number;
 }
