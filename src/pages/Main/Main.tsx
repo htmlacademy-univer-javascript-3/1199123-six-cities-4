@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import OfferList from '../../components/offers/OfferList';
 import { Map } from '../../components/map/map';
@@ -12,12 +11,12 @@ import { FilterForm } from '../../components/filters/FilterForm';
 import 'leaflet/dist/leaflet.css';
 
 export function Main(): JSX.Element {
-  const currentState = useSelector(() => store.getState());
+  const [currentState] = useState(store.getState());
 
-  const points: Points = [];
-  currentState.offers.map((o) => o.city).forEach((point) => {
-    points.push(point);
-  });
+  const points: Points = currentState.offers.map((o) => ({
+    id: o.id,
+    ...o.city
+  }));
 
   const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(points[0]);
   const handleListItemHover = (itemName: string) => {
@@ -67,7 +66,7 @@ export function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList cities={Cities} currentState={currentState}></LocationsList>
+            <LocationsList cities={Cities} currentCity={currentState.city}></LocationsList>
           </section>
         </div>
         <div className="cities">
@@ -77,12 +76,12 @@ export function Main(): JSX.Element {
               <b className="places__found">{currentState.offers.length.toString()} places to stay in {currentState.city}</b>
               <FilterForm filterTypes={Object.values(FilterType)} handleOfferSort={handleCurrentSortType}></FilterForm>
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offerCards={currentState.offers.map((offer) => ({...offer, onListItemHover: handleListItemHover}))} sortedBy={currentSortType}/>
+                <OfferList offerCards={currentState.cityOffers.map((offer) => ({...offer, onListItemHover: handleListItemHover}))} sortedBy={currentSortType}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={{name: 'Amsterdam', longitude: 4.85309666406198, latitude: 52.3909553943508, zoom: 1}} points={currentState.offers} selectedPoint={selectedPoint}></Map>;
+                <Map city={{name: 'Amsterdam', location: {longitude: 4.85309666406198, latitude: 52.3909553943508, zoom: 1}}} points={currentState.offers} selectedPoint={selectedPoint}></Map>;
               </section>
             </div>
           </div>

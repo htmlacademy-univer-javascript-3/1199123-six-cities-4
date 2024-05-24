@@ -7,7 +7,7 @@ type OfferCardProps = {
 };
 
 function OfferCard({ offer }: OfferCardProps): JSX.Element {
-  const { id, title, preview, type, costPerNight, rating, isFavourites, isPremium, onListItemHover} = offer;
+  const { id, title, type, preview, costPerNight, rating, isFavourites, isPremium, onListItemHover} = offer;
 
   const [activeOffer, setActiveOffer] = useState<string>('');
   function handleMouseOver() {
@@ -27,8 +27,9 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element {
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img
+            key={id}
             className="place-card__image"
-            src={preview}
+            src={preview[0]}
             width="260"
             height="200"
             alt="Place image"
