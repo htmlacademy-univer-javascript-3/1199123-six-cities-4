@@ -7,7 +7,7 @@ type OfferCardProps = {
 };
 
 function OfferCard({ offer }: OfferCardProps): JSX.Element {
-  const { id, title, type, preview, costPerNight, rating, isFavourites, isPremium, onListItemHover} = offer;
+  const { id, title, type, previewImage, price, rating, isFavorite, isPremium, onListItemHover} = offer;
 
   const [activeOffer, setActiveOffer] = useState<string>('');
   function handleMouseOver() {
@@ -29,7 +29,7 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element {
           <img
             key={id}
             className="place-card__image"
-            src={preview[0]}
+            src={previewImage}
             width="260"
             height="200"
             alt="Place image"
@@ -39,12 +39,12 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{costPerNight}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
             className={`place-card__bookmark-button ${
-              isFavourites ? 'place-card__bookmark-button--active' : ''
+              isFavorite ? 'place-card__bookmark-button--active' : ''
             } button`}
             type="button"
           >
@@ -52,7 +52,7 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element {
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">
-              {isFavourites ? 'In bookmarks' : 'To bookmarks'}
+              {isFavorite ? 'In bookmarks' : 'To bookmarks'}
             </span>
           </button>
         </div>

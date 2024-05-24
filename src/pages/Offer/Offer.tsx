@@ -312,7 +312,7 @@ export function Offer({ offers }: OfferProps): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={{name: 'Amsterdam', longitude: 4.85309666406198, latitude: 52.3909553943508, zoom: 1}} points={offers} selectedPoint={selectedPoint}/>
+            <Map city={{name: 'Amsterdam', location: {longitude: 4.85309666406198, latitude: 52.3909553943508, zoom: 1}}} points={offers} selectedPoint={selectedPoint}/>
           </section>
         </section>
         <OffersNearby offersNearby={offers}/>

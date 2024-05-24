@@ -11,9 +11,10 @@ import { FilterForm } from '../../components/filters/FilterForm';
 import 'leaflet/dist/leaflet.css';
 
 export function Main(): JSX.Element {
-  const [currentState] = useState(store.getState());
+  const [currentState, setCurrentState] = useState(store.getState());
 
-  const points: Points = currentState.offers.map((o) => ({
+
+  const points: Points = currentState.cityOffers.map((o) => ({
     id: o.id,
     ...o.city
   }));
@@ -66,17 +67,17 @@ export function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList cities={Cities} currentCity={currentState.city}></LocationsList>
+            <LocationsList cities={Cities} currentCity={currentState.city} setCurrentCity={setCurrentState}></LocationsList>
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentState.offers.length.toString()} places to stay in {currentState.city}</b>
+              <b className="places__found">{currentState.cityOffers.length.toString()} places to stay in {currentState.city}</b>
               <FilterForm filterTypes={Object.values(FilterType)} handleOfferSort={handleCurrentSortType}></FilterForm>
               <div className="cities__places-list places__list tabs__content">
-                <OfferList offerCards={currentState.cityOffers.map((offer) => ({...offer, onListItemHover: handleListItemHover}))} sortedBy={currentSortType}/>
+                <OfferList offerCards={currentState.cityOffers.map((offer) => ({onListItemHover: handleListItemHover, ...offer}))} sortedBy={currentSortType}/>
               </div>
             </section>
             <div className="cities__right-section">

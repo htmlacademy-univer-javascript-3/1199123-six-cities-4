@@ -6,27 +6,26 @@ import { Login } from '../../pages/Login/Login.tsx';
 import { Favourites } from '../../pages/Favourites/Favourites.tsx';
 import { PrivateRoute } from '../private-route/private-route.tsx';
 import { useAppSelector } from '../hooks/index.ts';
-// import Spinner from '../../pages/LoadingScreen/LoadingScreen.tsx';
+import Spinner from '../../pages/LoadingScreen/LoadingScreen.tsx';
 
 
 function App(): JSX.Element {
-  // const isLoading = useAppSelector((state) => state.isLoading);
+  const isLoading = useAppSelector((state) => state.isLoading);
   const offers = useAppSelector((state) => state.offers);
   const cityOffers = useAppSelector((state) => state.cityOffers);
-  // console.log(isLoading);
 
-  // if (isLoading) {
-  //   return (
-  //     <Spinner />
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/favorites" element={<PrivateRoute><Favourites favouritesList={offers.filter((obj) => obj.isFavourites)}/></PrivateRoute>} />
+        <Route path="/favorites" element={<PrivateRoute><Favourites favouritesList={offers.filter((obj) => obj.isFavorite)}/></PrivateRoute>} />
         <Route path="offer/:id" element={<Offer offers={cityOffers}/>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

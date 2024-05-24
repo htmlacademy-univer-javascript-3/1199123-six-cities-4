@@ -12,10 +12,10 @@ function OfferList({offerCards, sortedBy}: OfferListProps) {
   if (sortedBy) {
     switch (sortedBy) {
       case FilterType.LOW_TO_HIGH:
-        sortedOfferCards = [...offerCards].sort((a, b) => a.costPerNight - b.costPerNight);
+        sortedOfferCards = [...offerCards].sort((a, b) => a.price - b.price);
         break;
       case FilterType.HIGH_TO_LOW:
-        sortedOfferCards = [...offerCards].sort((a, b) => b.costPerNight - a.costPerNight);
+        sortedOfferCards = [...offerCards].sort((a, b) => b.price - a.price);
         break;
       case FilterType.TOP_RATED:
         sortedOfferCards = [...offerCards].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));

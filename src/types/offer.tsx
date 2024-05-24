@@ -4,15 +4,14 @@ import { City } from './city';
 export type OfferType = {
   id: string;
   title: string;
-  preview: string[];
-  description: string;
   type: string;
-  costPerNight: number;
-  rating: number;
-  isFavourites: boolean;
-  isPremium: boolean;
+  price: number;
   city: City;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
   reviews: Review[];
-  offersNearby: OfferType[];
   onListItemHover?: (listItemName: string) => void;
 }

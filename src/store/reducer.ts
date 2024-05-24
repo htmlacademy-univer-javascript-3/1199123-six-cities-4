@@ -3,7 +3,7 @@ import { setLoadingStatus, updateCity, updateOffers } from './action';
 import { OfferType } from '../types/offer';
 
 
-type InitialState = {
+export type InitialState = {
   city: string;
   offers: OfferType[];
   cityOffers: OfferType[];

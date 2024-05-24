@@ -1,19 +1,18 @@
 import { updateCity } from '../../store/action';
-import { useState } from 'react';
 import { store } from '../../store';
 import { useAppDispatch } from '../hooks';
+import { InitialState } from '../../store/reducer';
 
 type LocationItemProps = {
   city: string;
   currentCity: string;
+  setCurrentCity: (offer: InitialState) => void;
 };
 
-function LocationItem({ city, currentCity }: LocationItemProps): JSX.Element {
-  const [, setCurrentState] = useState(store.getState());
+function LocationItem({ city, currentCity, setCurrentCity }: LocationItemProps): JSX.Element {
   const handleCurrentState = () => {
-    setCurrentState(store.getState());
+    setCurrentCity(store.getState());
   };
-
   const dispatch = useAppDispatch();
   return (
     <li className="locations__item">
