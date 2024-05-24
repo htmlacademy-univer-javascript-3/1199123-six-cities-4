@@ -11,7 +11,7 @@ export function ReviewsList({ reviewComments }: ReviewsListProps) {
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewComments.length}</span></h2>
       <ul className="reviews__list">
         {reviewComments.map((item) => (
-          <ReviewComment key={`${item.author.name}`} review={item} {...item}/>
+          <ReviewComment key={item.id} review={item} {...item}/>
         ))}
       </ul>
     </div>

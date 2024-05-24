@@ -1,6 +1,13 @@
 import { Review } from '../types/review';
 import { City } from './city';
 
+
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
 export type OfferType = {
   id: string;
   title: string;
@@ -14,4 +21,13 @@ export type OfferType = {
   previewImage: string;
   reviews: Review[];
   onListItemHover?: (listItemName: string) => void;
+}
+
+export type CompleteOffer = OfferType & {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  images: string[];
+  maxAdults: number;
 }

@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setLoadingStatus, updateCity, updateOffers } from './action';
-import { OfferType } from '../types/offer';
+import { setLoadingStatus, updateCity, updateOffer, updateOffers, updateReviewComments } from './action';
+import { CompleteOffer, OfferType } from '../types/offer';
+import { Review } from '../types/review';
 
 
 export type InitialState = {
@@ -8,13 +9,17 @@ export type InitialState = {
   offers: OfferType[];
   cityOffers: OfferType[];
   isLoading: boolean;
+  currentOffer: CompleteOffer | undefined;
+  currentOfferReviews: Review[];
 }
 
 const initialState: InitialState = {
   city: 'Paris',
   offers: [],
   cityOffers: [],
-  isLoading: true
+  isLoading: true,
+  currentOffer: undefined,
+  currentOfferReviews: []
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -29,6 +34,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoadingStatus, (state, action) => {
       state.isLoading = action.payload;
+    })
+    .addCase(updateOffer, (state, action) => {
+      state.currentOffer = action.payload;
+    })
+    .addCase(updateReviewComments, (state, action) => {
+      state.currentOfferReviews = action.payload;
     });
 });
 

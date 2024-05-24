@@ -1,6 +1,5 @@
-export type Person = {
-  id: number;
-  avatar: string;
+export type User = {
   name: string;
+  avatarUrl: string;
   isPro: boolean;
 }
