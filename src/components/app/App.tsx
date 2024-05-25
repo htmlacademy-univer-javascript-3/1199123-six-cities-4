@@ -25,8 +25,8 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/favorites" element={<PrivateRoute><Favourites favouritesList={offers.filter((obj) => obj.isFavorite)}/></PrivateRoute>} />
-        <Route path="offer/:id" element={<Offer offers={cityOffers}/>} />
+        <Route path="/favorite" element={<PrivateRoute><Favourites favouritesList={offers.filter((obj) => obj.isFavorite)}/></PrivateRoute>} />
+        <Route path="/offer/:id" element={<Offer offers={cityOffers}/>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

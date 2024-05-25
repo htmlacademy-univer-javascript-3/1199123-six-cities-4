@@ -3,19 +3,19 @@ import { setUserDataLoadingStatus, updateAuthorizationStatus, updateLogin } from
 import { AuthorizationStatus } from '../../const';
 
 
-export type InitialState = {
+export type InitialStateUser = {
   authorizationStatus: AuthorizationStatus;
   isUserDataLoading: boolean;
   userLogin: string | null;
 }
 
-const initialState: InitialState = {
+const initialStateUser: InitialStateUser = {
   authorizationStatus: AuthorizationStatus.NOT_AUTHORIZED,
   isUserDataLoading: false,
   userLogin: null
 };
 
-const userReducer = createReducer(initialState, (builder) => {
+const userReducer = createReducer(initialStateUser, (builder) => {
   builder
     .addCase(updateAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;

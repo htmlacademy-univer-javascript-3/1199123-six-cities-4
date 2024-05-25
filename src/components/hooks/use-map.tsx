@@ -16,7 +16,7 @@ export default function useMap(
           lat: city.location.latitude,
           lng: city.location.longitude
         },
-        zoom: 10
+        zoom: city.location.zoom
       });
 
       const layer = new TileLayer(
@@ -33,6 +33,13 @@ export default function useMap(
       isRenderedRef.current = true;
     }
   }, [mapRef, city]);
+
+
+  useEffect(() => {
+    if (map) {
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+    }
+  }, [city, map]);
 
   return map;
 }

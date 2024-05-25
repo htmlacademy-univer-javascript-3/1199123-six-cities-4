@@ -1,9 +1,8 @@
+import { Location } from './city';
+
 export type Point = {
   name: string;
-  location: {
-    longitude: number;
-    latitude: number;
-  };
+  location: Location;
 }
 
 export type Points = Point[];

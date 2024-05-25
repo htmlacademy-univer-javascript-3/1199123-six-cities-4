@@ -5,9 +5,10 @@ import { FilterType } from '../../const';
 type OfferListProps = {
   offerCards: OfferType[];
   sortedBy: string;
+  onListItemHover?: (listItemName: string) => void;
 }
 
-function OfferList({offerCards, sortedBy}: OfferListProps) {
+function OfferList({offerCards, sortedBy, onListItemHover}: OfferListProps) {
   let sortedOfferCards = offerCards;
   if (sortedBy) {
     switch (sortedBy) {
@@ -25,7 +26,7 @@ function OfferList({offerCards, sortedBy}: OfferListProps) {
   return (
     <div className="cities__places-list places__list tabs__content">
       {sortedOfferCards.map((offer) => (
-        <OfferCard key={offer.id} offer={offer} {...offer}/>
+        <OfferCard key={offer.id} offer={offer} onListItemHover={onListItemHover} {...offer}/>
       ))}
     </div>
   );

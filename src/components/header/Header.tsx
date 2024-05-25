@@ -8,6 +8,7 @@ import { updateLogin } from '../../store/actions/userActions';
 export function Header(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
   const isUserDataLoading = useAppSelector((state) => state.user.isUserDataLoading);
+  const favoritesCount = useAppSelector((state) => state.favorites.favoritesCount);
   const userLogin = useAppSelector((state) => state.user.userLogin);
 
   const dispatch = useAppDispatch();
@@ -35,10 +36,10 @@ export function Header(): JSX.Element {
         </li>
       );
       userInformation = (
-        <a className="header__nav-link header__nav-link--profile" href="#">
+        <a className="header__nav-link header__nav-link--profile" href="/favorite">
           <div className="header__avatar-wrapper user__avatar-wrapper"></div>
           <span className="header__user-name user__name">{userLogin}</span>
-          <span className="header__favorite-count">3</span>
+          <span className="header__favorite-count">{favoritesCount}</span>
         </a>
       );
       break;
@@ -51,9 +52,7 @@ export function Header(): JSX.Element {
         </li>
       );
       userInformation = (
-        <li className="header__nav-item user">
-          <a className="header__nav-link header__nav-link--profile" href="#"></a>
-        </li>
+        <a className="header__nav-link header__nav-link--profile" href="#"></a>
       );
       break;
   }
