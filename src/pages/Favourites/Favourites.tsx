@@ -1,6 +1,6 @@
 import { OfferType } from '../../types/offer';
 import OfferCard from '../../components/offers/offer-card';
-import { Header } from '../../components/header/Header';
+import { Header } from '../../components/header/header';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
 import { useEffect } from 'react';
@@ -40,9 +40,9 @@ export function Favourites(): JSX.Element {
           </div>
         </main>
         <footer className="footer container">
-          <Link to={'/'} className="footer__logo-link">
+          <a className="footer__logo-link" href='#'>
             <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-          </Link>
+          </a>
         </footer>
       </div>
     );
@@ -67,7 +67,7 @@ export function Favourites(): JSX.Element {
                   </div>
                   <div className="favorites__places">
                     {favoritesMapped[city].map((offer) => (
-                      <OfferCard key={offer.id} offer={offer}></OfferCard>
+                      <OfferCard key={offer.id} offer={offer} {...offer}/>
                     ))}
                   </div>
                 </li>

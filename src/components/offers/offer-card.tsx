@@ -51,6 +51,7 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
     }
   }
 
+
   return (
     <article className="cities__card place-card" onMouseOver={handleMouseOver}>
       {isPremium && (

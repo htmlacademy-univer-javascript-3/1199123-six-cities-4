@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import OfferList from '../../components/offers/offer-list';
 import { Map } from '../../components/map/map';
 import { Point, Points } from '../../types/point';
@@ -8,12 +8,15 @@ import LocationsList from '../../components/locations/locations-list';
 import { FilterType } from '../../const';
 import { FilterForm } from '../../components/filters/filter-form';
 import 'leaflet/dist/leaflet.css';
-import { Header } from '../../components/header/Header';
+import { Header } from '../../components/header/header';
 import MainEmpty from './main-empty';
+import { useAppDispatch, useAppSelector } from '../../components/hooks';
+import { fetchFavorites } from '../../api/api-action';
 
 export function Main(): JSX.Element {
   const [currentState, setCurrentState] = useState(store.getState().offer);
-
+  const dispatch = useAppDispatch();
+  const favoriteCount = useAppSelector((state) => state.favorites.favoritesCount);
 
   const points: Points = currentState.cityOffers.map((o) => ({
     name: o.id,
@@ -30,6 +33,10 @@ export function Main(): JSX.Element {
   const handleCurrentSortType = (updatedSortType: string) => {
     setCurrentSortType(updatedSortType);
   };
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch, favoriteCount]);
 
   return (
     <div className="page page--gray page--main">

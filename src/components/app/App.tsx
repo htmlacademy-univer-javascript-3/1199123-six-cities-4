@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Main } from '../../pages/main/Main.tsx';
+import { Main } from '../../pages/main/main.tsx';
 import { NotFoundPage } from '../../pages/not-found-screen/not-found-screen.tsx';
-import { Offer } from '../../pages/offer/Offer.tsx';
-import { Login } from '../../pages/login/Login.tsx';
-import { Favourites } from '../../pages/favourites/Favourites.tsx';
+import { Offer } from '../../pages/offer/offer.tsx';
+import { Login } from '../../pages/login/login.tsx';
+import { Favourites } from '../../pages/favourites/favourites.tsx';
 import { PrivateRoute } from '../private-route/private-route.tsx';
 import { useAppSelector } from '../hooks/index.ts';
 import Spinner from '../../pages/loading-screen/loading-screen.tsx';

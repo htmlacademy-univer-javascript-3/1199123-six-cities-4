@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import Spinner from '../../pages/loading-screen/loading-screen';
 import { AuthorizationStatus } from '../../const';
@@ -29,9 +29,9 @@ export function Header(): JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Authorized) {
     loginManagement = (
       <li className="header__nav-item">
-        <Link to={'/login'} className="header__nav-link" onClick={handleLogout}>
+        <NavLink to={'/login'} className="header__nav-link" onClick={handleLogout}>
           <span className="header__signout">Sign out</span>
-        </Link>
+        </NavLink>
       </li>
     );
     userInformation = (
@@ -59,7 +59,7 @@ export function Header(): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link to={'/'} className="header__logo-link">
+            <Link to={'/#'} className="header__logo-link">
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>
