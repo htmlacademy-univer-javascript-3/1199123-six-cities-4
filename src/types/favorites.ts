@@ -1,6 +1,6 @@
 export enum FavouritesStatus {
-  ADD = 1,
-  DELETE = 0
+  Add = 1,
+  Delete = 0
 }
 
 export type FavouritesData = {

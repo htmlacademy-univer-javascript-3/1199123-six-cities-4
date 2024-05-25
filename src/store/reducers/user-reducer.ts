@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setUserDataLoadingStatus, updateAuthorizationStatus, updateLogin } from '../actions/userActions';
+import { setUserDataLoadingStatus, updateAuthorizationStatus, updateLogin } from '../actions/user-actions';
 import { AuthorizationStatus } from '../../const';
 
 
@@ -10,7 +10,7 @@ export type InitialStateUser = {
 }
 
 const initialStateUser: InitialStateUser = {
-  authorizationStatus: AuthorizationStatus.NOT_AUTHORIZED,
+  authorizationStatus: AuthorizationStatus.NotAuthorized,
   isUserDataLoading: false,
   userLogin: null
 };

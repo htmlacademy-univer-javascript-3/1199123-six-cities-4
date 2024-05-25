@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { OfferType } from '../../types/offer';
-import { setFavoritesLoadingStatus, updateFavorites, updateFavoritesCount } from '../actions/favoritesActions';
+import { setFavoritesLoadingStatus, updateFavorites, updateFavoritesCount } from '../actions/favorites-actions';
 
 export type InitialStateFavorite = {
   favorites: OfferType[];

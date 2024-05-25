@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { updateFavorite } from '../../api/api-action';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { FavouritesStatus } from '../../types/favorites';
-import { updateFavoritesCount } from '../../store/actions/favoritesActions';
+import { updateFavoritesCount } from '../../store/actions/favorites-actions';
 import { AuthorizationStatus } from '../../const';
 
 type OfferCardProps = {
@@ -30,18 +30,18 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
   }
 
   function handleIsFavorite() {
-    if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+    if (authorizationStatus === AuthorizationStatus.Authorized) {
       if (isFavoriteStatus) {
         dispatch(updateFavorite({
           id: offer.id,
-          status: FavouritesStatus.DELETE
+          status: FavouritesStatus.Delete
         }));
         setIsFavoriteStatus(false);
         dispatch(updateFavoritesCount(favoriteCount - 1));
       } else {
         dispatch(updateFavorite({
           id: offer.id,
-          status: FavouritesStatus.ADD
+          status: FavouritesStatus.Add
         }));
         setIsFavoriteStatus(true);
         dispatch(updateFavoritesCount(favoriteCount + 1));

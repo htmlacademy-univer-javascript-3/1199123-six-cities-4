@@ -1,19 +1,19 @@
 import { useParams } from 'react-router-dom';
-import { ReviewsList } from '../../components/reviews/ReviewsList';
+import { ReviewsList } from '../../components/reviews/reviews-list';
 import { OfferType } from '../../types/offer';
-import { NotFoundPage } from '../NotFoundScreen/NotFoundScreen';
+import { NotFoundPage } from '../not-found-screen/not-found-screen';
 import { Map } from '../../components/map/map';
-import { OffersNearby } from '../../components/offers/OffersNearby';
+import { OffersNearby } from '../../components/offers/offers-nearby';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { fetchReviewComments, fetchSingleOffer, updateFavorite } from '../../api/api-action';
-import { setLoadingStatus } from '../../store/actions/offerActions';
-import ReviewForm from '../../components/reviews/ReviewForm';
-import { Header } from '../../components/header/Header';
+import { setLoadingStatus } from '../../store/actions/offer-actions';
+import ReviewForm from '../../components/reviews/review-form';
+import { Header } from '../../components/header/header';
 import { Points } from '../../types/point';
 import { FavouritesStatus } from '../../types/favorites';
-import { updateFavoritesCount } from '../../store/actions/favoritesActions';
+import { updateFavoritesCount } from '../../store/actions/favorites-actions';
 import { AuthorizationStatus } from '../../const';
 import { sortReviewsByDate } from '../../utils';
 
@@ -49,14 +49,14 @@ export function Offer({ offers }: OfferProps): JSX.Element {
     if (isFavorite) {
       dispatch(updateFavorite({
         id: currentOffer?.id,
-        status: FavouritesStatus.DELETE
+        status: FavouritesStatus.Delete
       }));
       setIsFavorite(false);
       dispatch(updateFavoritesCount(favoritesCount - 1));
     } else {
       dispatch(updateFavorite({
         id: currentOffer?.id,
-        status: FavouritesStatus.ADD
+        status: FavouritesStatus.Add
       }));
       setIsFavorite(true);
       dispatch(updateFavoritesCount(favoritesCount + 1));
@@ -97,7 +97,7 @@ export function Offer({ offers }: OfferProps): JSX.Element {
                 <h1 className="offer__name">
                   {currentOffer?.title}
                 </h1>
-                {isAuthorized === AuthorizationStatus.AUTHORIZED && (
+                {isAuthorized === AuthorizationStatus.Authorized && (
                   <button className="offer__bookmark-button button" type="button" onClick={handleIsFavorite}>
                     <svg className="offer__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
@@ -161,7 +161,7 @@ export function Offer({ offers }: OfferProps): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
                 <ReviewsList reviewComments={sortReviewsByDate(currentReviews.slice(currentReviews.length - 10))}/>
-                {isAuthorized === AuthorizationStatus.AUTHORIZED && (
+                {isAuthorized === AuthorizationStatus.Authorized && (
                   <ReviewForm offerId={currentOffer?.id}/>
                 )}
               </section>

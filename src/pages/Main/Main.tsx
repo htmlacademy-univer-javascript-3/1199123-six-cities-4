@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import OfferList from '../../components/offers/OfferList';
+import OfferList from '../../components/offers/offer-list';
 import { Map } from '../../components/map/map';
 import { Point, Points } from '../../types/point';
 import { store } from '../../store';
 import { Cities } from '../../const';
-import LocationsList from '../../components/locations/LocationsList';
+import LocationsList from '../../components/locations/locations-list';
 import { FilterType } from '../../const';
-import { FilterForm } from '../../components/filters/FilterForm';
+import { FilterForm } from '../../components/filters/filter-form';
 import 'leaflet/dist/leaflet.css';
-import { Header } from '../../components/header/Header';
-import MainEmpty from './MainEmpty';
+import { Header } from '../../components/header/header';
+import MainEmpty from './main-empty';
 
 export function Main(): JSX.Element {
   const [currentState, setCurrentState] = useState(store.getState().offer);

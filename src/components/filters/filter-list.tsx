@@ -1,4 +1,4 @@
-import { FilterOption } from './FilterOption';
+import { FilterOption } from './filter-option';
 
 type FilterListProps = {
   filterTypes: string[];

@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setLoadingStatus, updateCity, updateOffer, updateOffers, updateReviewComments } from '../actions/offerActions';
+import { setLoadingStatus, updateCity, updateOffer, updateOffers, updateReviewComments } from '../actions/offer-actions';
 import { CompleteOffer, OfferType } from '../../types/offer';
 import { Review } from '../../types/review';
 

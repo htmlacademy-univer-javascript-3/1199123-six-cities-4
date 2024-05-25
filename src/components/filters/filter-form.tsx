@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FilterList } from './FIlterList';
+import { FilterList } from './filter-list';
 
 type FilterFormProps = {
   filterTypes: string[];

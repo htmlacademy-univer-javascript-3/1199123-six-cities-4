@@ -13,7 +13,7 @@ export function Login(): JSX.Element {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+    if (authorizationStatus === AuthorizationStatus.Authorized) {
       navigate('/');
     }
   });

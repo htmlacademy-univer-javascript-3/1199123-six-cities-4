@@ -1,5 +1,5 @@
 import {ChangeEventHandler, FormEvent, MouseEventHandler, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../hooks';
+import {useAppDispatch, useAppSelector} from '../hooks/index.ts';
 import { fetchReviewComments, postReview } from '../../api/api-action.ts';
 import { AuthorizationStatus } from '../../const.ts';
 
@@ -78,7 +78,7 @@ export default function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={rating === '' || reviewText.length < 100 || authorizationStatus === AuthorizationStatus.NOT_AUTHORIZED} >Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={rating === '' || reviewText.length < 100 || authorizationStatus === AuthorizationStatus.NotAuthorized} >Submit</button>
       </div>
     </form>
   );

@@ -1,5 +1,5 @@
 import { OfferType } from '../../types/offer';
-import OfferCard from './OfferCard';
+import OfferCard from './offer-card';
 
 type OffersNearbyProps = {
   offersNearby: OfferType[];

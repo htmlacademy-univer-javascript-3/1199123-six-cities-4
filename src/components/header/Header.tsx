@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import Spinner from '../../pages/LoadingScreen/LoadingScreen';
+import Spinner from '../../pages/loading-screen/loading-screen';
 import { AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../api/api-action';
-import { updateLogin } from '../../store/actions/userActions';
+import { updateLogin } from '../../store/actions/user-actions';
 
 export function Header(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
@@ -26,7 +26,7 @@ export function Header(): JSX.Element {
 
   let loginManagement;
   let userInformation;
-  if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+  if (authorizationStatus === AuthorizationStatus.Authorized) {
     loginManagement = (
       <li className="header__nav-item">
         <Link to={'/login'} className="header__nav-link" onClick={handleLogout}>
