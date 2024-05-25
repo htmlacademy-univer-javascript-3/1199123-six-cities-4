@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/index';
-import { updateOffers, setLoadingStatus, updateOffer, updateReviewComments, updateLogin, updateAuthorizationStatus, setUserDataLoadingStatus } from '../store/action';
+import { updateOffers, setLoadingStatus, updateOffer, updateReviewComments } from '../store/actions/offerActions';
+import { updateLogin, updateAuthorizationStatus, setUserDataLoadingStatus } from '../store/actions/userActions';
 import { CompleteOffer, OfferType } from '../types/offer';
 import { Review, ReviewData } from '../types/review';
 import { AuthorizationData, UserData } from '../types/user';

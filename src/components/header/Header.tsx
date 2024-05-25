@@ -3,12 +3,12 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import Spinner from '../../pages/LoadingScreen/LoadingScreen';
 import { AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../api/api-action';
-import { updateLogin } from '../../store/action';
+import { updateLogin } from '../../store/actions/userActions';
 
 export function Header(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isUserDataLoading = useAppSelector((state) => state.isUserDataLoading);
-  const userLogin = useAppSelector((state) => state.userLogin);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const isUserDataLoading = useAppSelector((state) => state.user.isUserDataLoading);
+  const userLogin = useAppSelector((state) => state.user.userLogin);
 
   const dispatch = useAppDispatch();
 

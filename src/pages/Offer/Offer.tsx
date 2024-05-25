@@ -7,7 +7,7 @@ import { OffersNearby } from '../../components/offers/OffersNearby';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
 import { useEffect } from 'react';
 import { fetchReviewComments, fetchSingleOffer } from '../../api/api-action';
-import { setLoadingStatus } from '../../store/action';
+import { setLoadingStatus } from '../../store/actions/offerActions';
 import ReviewForm from '../../components/reviews/ReviewForm';
 import { Header } from '../../components/header/Header';
 
@@ -18,8 +18,8 @@ type OfferProps = {
 export function Offer({ offers }: OfferProps): JSX.Element {
   const { id } = useParams();
   const offer = offers.find((obj) => obj.id === id);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const currentReviews = useAppSelector((state) => state.currentOfferReviews);
+  const currentOffer = useAppSelector((state) => state.offer.currentOffer);
+  const currentReviews = useAppSelector((state) => state.offer.currentOfferReviews);
 
   const dispatch = useAppDispatch();
   useEffect(() => {

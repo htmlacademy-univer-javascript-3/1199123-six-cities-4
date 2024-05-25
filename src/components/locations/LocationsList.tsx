@@ -1,10 +1,10 @@
-import { InitialState } from '../../store/reducer';
+import { InitialStateOffer } from '../../store/reducers/offerReducer';
 import LocationItem from './LocationItem';
 
 type LocationsListProps = {
   cities: string[];
   currentCity: string;
-  setCurrentCity: (offer: InitialState) => void;
+  setCurrentCity: (offer: InitialStateOffer) => void;
 };
 
 function LocationsList({cities, currentCity, setCurrentCity}: LocationsListProps) {
