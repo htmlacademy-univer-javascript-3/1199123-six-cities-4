@@ -11,7 +11,6 @@ import Spinner from '../../pages/LoadingScreen/LoadingScreen.tsx';
 
 function App(): JSX.Element {
   const isLoading = useAppSelector((state) => state.offer.isLoading);
-  const offers = useAppSelector((state) => state.offer.offers);
   const cityOffers = useAppSelector((state) => state.offer.cityOffers);
 
   if (isLoading) {
@@ -25,7 +24,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/favorite" element={<PrivateRoute><Favourites favouritesList={offers.filter((obj) => obj.isFavorite)}/></PrivateRoute>} />
+        <Route path="/favorites" element={<PrivateRoute><Favourites /></PrivateRoute>} />
         <Route path="/offer/:id" element={<Offer offers={cityOffers}/>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

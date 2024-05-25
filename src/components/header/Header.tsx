@@ -26,35 +26,32 @@ export function Header(): JSX.Element {
 
   let loginManagement;
   let userInformation;
-  switch (authorizationStatus) {
-    case AuthorizationStatus.AUTHORIZED:
-      loginManagement = (
-        <li className="header__nav-item">
-          <a className="header__nav-link" href="/login" onClick={handleLogout}>
-            <span className="header__signout">Sign out</span>
-          </a>
-        </li>
-      );
-      userInformation = (
-        <a className="header__nav-link header__nav-link--profile" href="/favorite">
-          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-          <span className="header__user-name user__name">{userLogin}</span>
-          <span className="header__favorite-count">{favoritesCount}</span>
-        </a>
-      );
-      break;
-    default:
-      loginManagement = (
-        <li className="header__nav-item">
-          <a className="header__nav-link" href="/login">
-            <span className="header__signout">Sign in</span>
-          </a>
-        </li>
-      );
-      userInformation = (
-        <a className="header__nav-link header__nav-link--profile" href="#"></a>
-      );
-      break;
+  if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+    loginManagement = (
+      <li className="header__nav-item">
+        <Link to={'/login'} className="header__nav-link" onClick={handleLogout}>
+          <span className="header__signout">Sign out</span>
+        </Link>
+      </li>
+    );
+    userInformation = (
+      <Link to={'/favorites'} className="header__nav-link header__nav-link--profile">
+        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+        <span className="header__user-name user__name">{userLogin}</span>
+        <span className="header__favorite-count">{favoritesCount}</span>
+      </Link>
+    );
+  } else {
+    loginManagement = (
+      <li className="header__nav-item">
+        <Link to={'/login'} className="header__nav-link">
+          <span className="header__signout">Sign in</span>
+        </Link>
+      </li>
+    );
+    userInformation = (
+      <Link to={'/'} className="header__nav-link header__nav-link--profile"></Link>
+    );
   }
 
   return (
@@ -62,7 +59,7 @@ export function Header(): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link to='/' className="header__logo-link">
+            <Link to={'/'} className="header__logo-link">
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>
