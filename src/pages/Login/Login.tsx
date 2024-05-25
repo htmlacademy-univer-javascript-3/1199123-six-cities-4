@@ -1,14 +1,22 @@
-import { FormEvent, useRef } from 'react';
-import { useAppDispatch } from '../../components/hooks';
+import { FormEvent, useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../components/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginAction } from '../../api/api-action';
+import { AuthorizationStatus } from '../../const';
 
 export function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+      navigate('/');
+    }
+  });
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

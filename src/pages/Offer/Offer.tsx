@@ -15,6 +15,7 @@ import { Points } from '../../types/point';
 import { FavouritesStatus } from '../../types/favorites';
 import { updateFavoritesCount } from '../../store/actions/favoritesActions';
 import { AuthorizationStatus } from '../../const';
+import { sortReviewsByDate } from '../../utils';
 
 type OfferProps = {
   offers: OfferType[];
@@ -69,6 +70,7 @@ export function Offer({ offers }: OfferProps): JSX.Element {
 
   const selectedPoint = points.find((o) => o.name === offer?.id);
   const offersNearby = offers.filter((o) => o !== offer);
+
   return (
     <div className="page">
       <Header/>
@@ -106,7 +108,7 @@ export function Offer({ offers }: OfferProps): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${currentOffer?.rating * 20}%` }}></span>
+                  <span style={{ width: `${Math.round(currentOffer?.rating) * 20}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{currentOffer?.rating}</span>
@@ -158,16 +160,18 @@ export function Offer({ offers }: OfferProps): JSX.Element {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <ReviewsList reviewComments={currentReviews}/>
-                <ReviewForm offerId={currentOffer?.id}/>
+                <ReviewsList reviewComments={sortReviewsByDate(currentReviews.slice(currentReviews.length - 10))}/>
+                {isAuthorized === AuthorizationStatus.AUTHORIZED && (
+                  <ReviewForm offerId={currentOffer?.id}/>
+                )}
               </section>
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={currentOffer?.city} points={points} selectedPoint={selectedPoint} height='600px' width='1200px'/>
+            <Map city={currentOffer?.city} points={points.slice(0, 4)} selectedPoint={selectedPoint} height='600px' width='1200px'/>
           </section>
         </section>
-        <OffersNearby offersNearby={offersNearby}/>
+        <OffersNearby offersNearby={offersNearby.slice(0, 4)}/>
       </main>
     </div>
   );

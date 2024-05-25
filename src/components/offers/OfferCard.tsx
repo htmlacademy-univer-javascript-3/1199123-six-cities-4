@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { OfferType } from '../../types/offer';
 import { useState } from 'react';
 import { updateFavorite } from '../../api/api-action';
@@ -19,6 +19,7 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
   const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(isFavorite);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
   const favoriteCount = useAppSelector((state) => state.favorites.favoritesCount);
   function handleMouseOver() {
@@ -29,20 +30,24 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
   }
 
   function handleIsFavorite() {
-    if (isFavoriteStatus) {
-      dispatch(updateFavorite({
-        id: offer.id,
-        status: FavouritesStatus.DELETE
-      }));
-      setIsFavoriteStatus(false);
-      dispatch(updateFavoritesCount(favoriteCount - 1));
+    if (authorizationStatus === AuthorizationStatus.AUTHORIZED) {
+      if (isFavoriteStatus) {
+        dispatch(updateFavorite({
+          id: offer.id,
+          status: FavouritesStatus.DELETE
+        }));
+        setIsFavoriteStatus(false);
+        dispatch(updateFavoritesCount(favoriteCount - 1));
+      } else {
+        dispatch(updateFavorite({
+          id: offer.id,
+          status: FavouritesStatus.ADD
+        }));
+        setIsFavoriteStatus(true);
+        dispatch(updateFavoritesCount(favoriteCount + 1));
+      }
     } else {
-      dispatch(updateFavorite({
-        id: offer.id,
-        status: FavouritesStatus.ADD
-      }));
-      setIsFavoriteStatus(true);
-      dispatch(updateFavoritesCount(favoriteCount + 1));
+      navigate('/login');
     }
   }
 
@@ -71,26 +76,24 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          {authorizationStatus === AuthorizationStatus.AUTHORIZED && (
-            <button
-              className={`place-card__bookmark-button ${
-                isFavoriteStatus ? 'place-card__bookmark-button--active' : ''
-              } button`}
-              type="button"
-              onClick={handleIsFavorite}
-            >
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">
-                {isFavoriteStatus ? 'In bookmarks' : 'To bookmarks'}
-              </span>
-            </button>
-          )}
+          <button
+            className={`place-card__bookmark-button ${
+              isFavoriteStatus ? 'place-card__bookmark-button--active' : ''
+            } button`}
+            type="button"
+            onClick={handleIsFavorite}
+          >
+            <svg className="place-card__bookmark-icon" width="18" height="19">
+              <use xlinkHref="#icon-bookmark"></use>
+            </svg>
+            <span className="visually-hidden">
+              {isFavoriteStatus ? 'In bookmarks' : 'To bookmarks'}
+            </span>
+          </button>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating * 20}%` }}></span>
+            <span style={{ width: `${Math.round(rating) * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

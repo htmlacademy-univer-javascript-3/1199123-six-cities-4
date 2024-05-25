@@ -1,3 +1,6 @@
+import { Review } from './types/review';
+
+
 export function formatDate(date: string): string {
   const newDate = new Date(date);
 
@@ -17,4 +20,12 @@ export function getMonthYear(date: string) {
 
   const [year, month] = formattedDate.split('-').map((item) => parseInt(item, 10));
   return `${months[month - 2]} ${year}`;
+}
+
+export function sortReviewsByDate(reviews: Review[]): Review[] {
+  return reviews.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateB.getTime() - dateA.getTime();
+  });
 }
