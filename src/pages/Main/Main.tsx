@@ -14,7 +14,6 @@ import MainEmpty from './main-empty';
 export function Main(): JSX.Element {
   const [currentState, setCurrentState] = useState(store.getState().offer);
 
-
   const points: Points = currentState.cityOffers.map((o) => ({
     name: o.id,
     location: o.location

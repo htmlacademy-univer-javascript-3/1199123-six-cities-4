@@ -1,7 +1,6 @@
 import { OfferType } from '../../types/offer';
 import OfferCard from '../../components/offers/offer-card';
 import { Header } from '../../components/header/header';
-import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
 import { useEffect } from 'react';
 import { fetchFavorites } from '../../api/api-action';
@@ -40,9 +39,9 @@ export function Favourites(): JSX.Element {
           </div>
         </main>
         <footer className="footer container">
-          <Link to={'/'} className="footer__logo-link">
+          <a className="footer__logo-link" href='#'>
             <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-          </Link>
+          </a>
         </footer>
       </div>
     );
@@ -60,14 +59,14 @@ export function Favourites(): JSX.Element {
                 <li className="favorites__locations-items" key={city}>
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
-                      <a className="locations__item-link" href="#">
+                      <a className="locations__item-link" href='#'>
                         <span>{city}</span>
                       </a>
                     </div>
                   </div>
                   <div className="favorites__places">
                     {favoritesMapped[city].map((offer) => (
-                      <OfferCard key={offer.id} offer={offer}></OfferCard>
+                      <OfferCard key={offer.id} offer={offer} {...offer}/>
                     ))}
                   </div>
                 </li>
@@ -77,9 +76,9 @@ export function Favourites(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <Link to={'/'} className="footer__logo-link">
+        <a className="footer__logo-link" href="/">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </Link>
+        </a>
       </footer>
     </div>
   );
