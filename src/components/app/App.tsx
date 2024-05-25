@@ -10,9 +10,9 @@ import Spinner from '../../pages/LoadingScreen/LoadingScreen.tsx';
 
 
 function App(): JSX.Element {
-  const isLoading = useAppSelector((state) => state.isLoading);
-  const offers = useAppSelector((state) => state.offers);
-  const cityOffers = useAppSelector((state) => state.cityOffers);
+  const isLoading = useAppSelector((state) => state.offer.isLoading);
+  const offers = useAppSelector((state) => state.offer.offers);
+  const cityOffers = useAppSelector((state) => state.offer.cityOffers);
 
   if (isLoading) {
     return (

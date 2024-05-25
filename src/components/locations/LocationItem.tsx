@@ -1,17 +1,17 @@
-import { updateCity } from '../../store/action';
+import { updateCity } from '../../store/actions/offerActions';
 import { store } from '../../store';
 import { useAppDispatch } from '../hooks';
-import { InitialState } from '../../store/reducer';
+import { InitialStateOffer } from '../../store/reducers/offerReducer';
 
 type LocationItemProps = {
   city: string;
   currentCity: string;
-  setCurrentCity: (offer: InitialState) => void;
+  setCurrentCity: (offer: InitialStateOffer) => void;
 };
 
 function LocationItem({ city, currentCity, setCurrentCity }: LocationItemProps): JSX.Element {
   const handleCurrentState = () => {
-    setCurrentCity(store.getState());
+    setCurrentCity(store.getState().offer);
   };
   const dispatch = useAppDispatch();
   return (

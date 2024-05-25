@@ -11,7 +11,7 @@ import 'leaflet/dist/leaflet.css';
 import { Header } from '../../components/header/Header';
 
 export function Main(): JSX.Element {
-  const [currentState, setCurrentState] = useState(store.getState());
+  const [currentState, setCurrentState] = useState(store.getState().offer);
 
 
   const points: Points = currentState.cityOffers.map((o) => ({
