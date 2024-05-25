@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/index';
 import { updateOffers, setLoadingStatus, updateOffer, updateReviewComments, updateLogin, updateAuthorizationStatus, setUserDataLoadingStatus } from '../store/action';
 import { CompleteOffer, OfferType } from '../types/offer';
-import { Review } from '../types/review';
+import { Review, ReviewData } from '../types/review';
 import { AuthorizationData, UserData } from '../types/user';
 import { AuthorizationStatus } from '../const';
 import { dropToken, saveToken } from '../types/token';
@@ -108,6 +108,20 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete('/logout');
     dropToken();
     dispatch(updateAuthorizationStatus(AuthorizationStatus.NOT_AUTHORIZED));
+    dispatch(setUserDataLoadingStatus(false));
+  },
+);
+
+export const postReview = createAsyncThunk<void, ReviewData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'user/login',
+  async ({id, comment, rating}, {dispatch, extra: api}) => {
+    dispatch(setUserDataLoadingStatus(true));
+    await api.post<UserData>(`/comments/${id}`, {comment, rating});
     dispatch(setUserDataLoadingStatus(false));
   },
 );
