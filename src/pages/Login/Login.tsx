@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { loginAction } from '../../api/api-action';
 import { AuthorizationStatus } from '../../const';
 
@@ -36,7 +36,7 @@ export function Login(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to={'/'} className="header__logo-link">
+              <a className="header__logo-link" href="/">
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -44,7 +44,7 @@ export function Login(): JSX.Element {
                   width="81"
                   height="41"
                 />
-              </Link>
+              </a>
             </div>
           </div>
         </div>
