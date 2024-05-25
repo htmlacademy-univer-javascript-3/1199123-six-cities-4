@@ -1,20 +1,54 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { OfferType } from '../../types/offer';
 import { useState } from 'react';
+import { updateFavorite } from '../../api/api-action';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { FavouritesStatus } from '../../types/favorites';
+import { updateFavoritesCount } from '../../store/actions/favorites-actions';
+import { AuthorizationStatus } from '../../const';
 
 type OfferCardProps = {
   offer: OfferType;
+  onListItemHover?: (listItemName: string) => void;
 };
 
-function OfferCard({ offer }: OfferCardProps): JSX.Element {
-  const { id, title, type, previewImage, price, rating, isFavorite, isPremium, onListItemHover} = offer;
+function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
+  const { id, title, type, previewImage, price, rating, isFavorite, isPremium} = offer;
 
   const [activeOffer, setActiveOffer] = useState<string>('');
+  const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(isFavorite);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const favoriteCount = useAppSelector((state) => state.favorites.favoritesCount);
   function handleMouseOver() {
     if (onListItemHover) {
-      onListItemHover(title);
+      onListItemHover(id);
     }
     setActiveOffer(id);
+  }
+
+  function handleIsFavorite() {
+    if (authorizationStatus === AuthorizationStatus.Authorized) {
+      if (isFavoriteStatus) {
+        dispatch(updateFavorite({
+          id: offer.id,
+          status: FavouritesStatus.Delete
+        }));
+        setIsFavoriteStatus(false);
+        dispatch(updateFavoritesCount(favoriteCount - 1));
+      } else {
+        dispatch(updateFavorite({
+          id: offer.id,
+          status: FavouritesStatus.Add
+        }));
+        setIsFavoriteStatus(true);
+        dispatch(updateFavoritesCount(favoriteCount + 1));
+      }
+    } else {
+      navigate('/login');
+    }
   }
 
   return (
@@ -44,21 +78,22 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element {
           </div>
           <button
             className={`place-card__bookmark-button ${
-              isFavorite ? 'place-card__bookmark-button--active' : ''
+              isFavoriteStatus ? 'place-card__bookmark-button--active' : ''
             } button`}
             type="button"
+            onClick={handleIsFavorite}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">
-              {isFavorite ? 'In bookmarks' : 'To bookmarks'}
+              {isFavoriteStatus ? 'In bookmarks' : 'To bookmarks'}
             </span>
           </button>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating * 20}%` }}></span>
+            <span style={{ width: `${Math.round(rating) * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

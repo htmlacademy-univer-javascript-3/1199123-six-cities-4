@@ -1,14 +1,22 @@
-import { FormEvent, useRef } from 'react';
-import { useAppDispatch } from '../../components/hooks';
-import { useNavigate } from 'react-router-dom';
+import { FormEvent, useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../components/hooks';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginAction } from '../../api/api-action';
+import { AuthorizationStatus } from '../../const';
 
 export function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Authorized) {
+      navigate('/');
+    }
+  });
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -28,7 +36,7 @@ export function Login(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link to={'/'} className="header__logo-link">
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -36,7 +44,7 @@ export function Login(): JSX.Element {
                   width="81"
                   height="41"
                 />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

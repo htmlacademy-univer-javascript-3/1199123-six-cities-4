@@ -1,6 +1,5 @@
-import { Review } from '../types/review';
 import { City } from './city';
-
+import { Location } from './city';
 
 export type Host = {
   name: string;
@@ -19,8 +18,6 @@ export type OfferType = {
   isPremium: boolean;
   rating: number;
   previewImage: string;
-  reviews: Review[];
-  onListItemHover?: (listItemName: string) => void;
 }
 
 export type CompleteOffer = OfferType & {

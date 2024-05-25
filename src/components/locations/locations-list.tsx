@@ -1,5 +1,5 @@
-import { InitialStateOffer } from '../../store/reducers/offerReducer';
-import LocationItem from './LocationItem';
+import { InitialStateOffer } from '../../store/reducers/offer-reducer';
+import LocationItem from './location-item';
 
 type LocationsListProps = {
   cities: string[];

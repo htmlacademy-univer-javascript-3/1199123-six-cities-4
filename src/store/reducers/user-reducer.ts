@@ -1,21 +1,21 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setUserDataLoadingStatus, updateAuthorizationStatus, updateLogin } from '../actions/userActions';
+import { setUserDataLoadingStatus, updateAuthorizationStatus, updateLogin } from '../actions/user-actions';
 import { AuthorizationStatus } from '../../const';
 
 
-export type InitialState = {
+export type InitialStateUser = {
   authorizationStatus: AuthorizationStatus;
   isUserDataLoading: boolean;
   userLogin: string | null;
 }
 
-const initialState: InitialState = {
-  authorizationStatus: AuthorizationStatus.NOT_AUTHORIZED,
+const initialStateUser: InitialStateUser = {
+  authorizationStatus: AuthorizationStatus.NotAuthorized,
   isUserDataLoading: false,
   userLogin: null
 };
 
-const userReducer = createReducer(initialState, (builder) => {
+const userReducer = createReducer(initialStateUser, (builder) => {
   builder
     .addCase(updateAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;

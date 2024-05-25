@@ -1,8 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { userReducer } from './userReducer';
-import { offerReducer } from './offerReducer';
+import { userReducer } from './user-reducer';
+import { offerReducer } from './offer-reducer';
+import { favoritesReducer } from './favorites-reducer';
 
 export const reducer = combineReducers({
   offer: offerReducer,
-  user: userReducer
+  user: userReducer,
+  favorites: favoritesReducer
 });

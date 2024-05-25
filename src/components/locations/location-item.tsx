@@ -1,7 +1,7 @@
-import { updateCity } from '../../store/actions/offerActions';
+import { updateCity } from '../../store/actions/offer-actions';
 import { store } from '../../store';
 import { useAppDispatch } from '../hooks';
-import { InitialStateOffer } from '../../store/reducers/offerReducer';
+import { InitialStateOffer } from '../../store/reducers/offer-reducer';
 
 type LocationItemProps = {
   city: string;

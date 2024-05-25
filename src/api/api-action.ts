@@ -1,13 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/index';
-import { updateOffers, setLoadingStatus, updateOffer, updateReviewComments } from '../store/actions/offerActions';
-import { updateLogin, updateAuthorizationStatus, setUserDataLoadingStatus } from '../store/actions/userActions';
+import { updateOffers, setLoadingStatus, updateOffer, updateReviewComments } from '../store/actions/offer-actions';
+import { updateLogin, updateAuthorizationStatus, setUserDataLoadingStatus } from '../store/actions/user-actions';
 import { CompleteOffer, OfferType } from '../types/offer';
 import { Review, ReviewData } from '../types/review';
 import { AuthorizationData, UserData } from '../types/user';
 import { AuthorizationStatus } from '../const';
 import { dropToken, saveToken } from '../types/token';
+import { setFavoritesLoadingStatus, updateFavorites } from '../store/actions/favorites-actions';
+import { FavouritesData } from '../types/favorites';
 
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -70,9 +72,9 @@ export const checkAuthorization = createAsyncThunk<void, undefined, {
       dispatch(setUserDataLoadingStatus(true));
       const {data: {email}} = await api.get<UserData>('/login');
       dispatch(updateLogin(email));
-      dispatch(updateAuthorizationStatus(AuthorizationStatus.AUTHORIZED));
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.Authorized));
     } catch {
-      dispatch(updateAuthorizationStatus(AuthorizationStatus.NOT_AUTHORIZED));
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.NotAuthorized));
     } finally {
       dispatch(setUserDataLoadingStatus(false));
     }
@@ -90,7 +92,7 @@ export const loginAction = createAsyncThunk<void, AuthorizationData, {
   async ({email, password}, {dispatch, extra: api}) => {
     dispatch(setUserDataLoadingStatus(true));
     const {data: {token}} = await api.post<UserData>('/login', {email, password});
-    dispatch(updateAuthorizationStatus(AuthorizationStatus.AUTHORIZED));
+    dispatch(updateAuthorizationStatus(AuthorizationStatus.Authorized));
     dispatch(updateLogin(email));
     saveToken(token);
     dispatch(setUserDataLoadingStatus(false));
@@ -108,7 +110,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dispatch(setUserDataLoadingStatus(true));
     await api.delete('/logout');
     dropToken();
-    dispatch(updateAuthorizationStatus(AuthorizationStatus.NOT_AUTHORIZED));
+    dispatch(updateAuthorizationStatus(AuthorizationStatus.NotAuthorized));
     dispatch(setUserDataLoadingStatus(false));
   },
 );
@@ -124,5 +126,40 @@ export const postReview = createAsyncThunk<void, ReviewData, {
     dispatch(setUserDataLoadingStatus(true));
     await api.post<UserData>(`/comments/${id}`, {comment, rating});
     dispatch(setUserDataLoadingStatus(false));
+  },
+);
+
+
+export const fetchFavorites = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'favorites/fetchFavorites',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      dispatch(setFavoritesLoadingStatus(true));
+      const { data } = await api.get<OfferType[]>('/favorite');
+      dispatch(updateFavorites(data));
+    } catch {
+      dispatch(updateFavorites([]));
+    } finally {
+      dispatch(setFavoritesLoadingStatus(false));
+    }
+  },
+);
+
+export const updateFavorite = createAsyncThunk<void, FavouritesData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'favorites/updateFavorite',
+  async ({id, status}, {dispatch, extra: api}) => {
+    dispatch(setFavoritesLoadingStatus(true));
+    await api.post<UserData>(`/favorite/${id}/${status}`);
+    dispatch(setFavoritesLoadingStatus(false));
   },
 );

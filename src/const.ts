@@ -5,15 +5,15 @@ export const Settings = {
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export enum FilterType {
-  POPULAR = 'Popular',
-  HIGH_TO_LOW = 'Price: high to low',
-  LOW_TO_HIGH = 'Price: low to high',
-  TOP_RATED = 'Top rated first'
+  Popular = 'Popular',
+  HighToLow = 'Price: high to low',
+  LowToHigh = 'Price: low to high',
+  TopRated = 'Top rated first'
 }
 
 export enum AuthorizationStatus {
-  AUTHORIZED = 'AUTHORIZED',
-  NOT_AUTHORIZED = 'NOT_AUTHORIZED'
+  Authorized = 'Authorized',
+  NotAuthorized = 'NotAuthorized'
 }
 
 export const URL_MARKER_DEFAULT =

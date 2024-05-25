@@ -1,27 +1,28 @@
 import { useState } from 'react';
-import OfferList from '../../components/offers/OfferList';
+import OfferList from '../../components/offers/offer-list';
 import { Map } from '../../components/map/map';
 import { Point, Points } from '../../types/point';
 import { store } from '../../store';
 import { Cities } from '../../const';
-import LocationsList from '../../components/locations/LocationsList';
+import LocationsList from '../../components/locations/locations-list';
 import { FilterType } from '../../const';
-import { FilterForm } from '../../components/filters/FilterForm';
+import { FilterForm } from '../../components/filters/filter-form';
 import 'leaflet/dist/leaflet.css';
-import { Header } from '../../components/header/Header';
+import { Header } from '../../components/header/header';
+import MainEmpty from './main-empty';
 
 export function Main(): JSX.Element {
   const [currentState, setCurrentState] = useState(store.getState().offer);
 
 
   const points: Points = currentState.cityOffers.map((o) => ({
-    id: o.id,
-    ...o.city
+    name: o.id,
+    location: o.location
   }));
 
   const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(points[0]);
-  const handleListItemHover = (itemName: string) => {
-    const currentPoint = points.find((point) => point.name === itemName);
+  const handleListItemHover = (itemID: string) => {
+    const currentPoint = points.find((point) => point.name === itemID);
     setSelectedPoint(currentPoint);
   };
 
@@ -42,21 +43,25 @@ export function Main(): JSX.Element {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentState.cityOffers.length.toString()} places to stay in {currentState.city}</b>
-              <FilterForm filterTypes={Object.values(FilterType)} handleOfferSort={handleCurrentSortType}></FilterForm>
-              <div className="cities__places-list places__list tabs__content">
-                <OfferList offerCards={currentState.cityOffers.map((offer) => ({onListItemHover: handleListItemHover, ...offer}))} sortedBy={currentSortType}/>
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map city={{name: 'Amsterdam', location: {longitude: 4.85309666406198, latitude: 52.3909553943508, zoom: 1}}} points={currentState.offers} selectedPoint={selectedPoint}></Map>;
+          {currentState.cityOffers.length === 0 ? (
+            <MainEmpty city={currentState.city}/>
+          ) : (
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{currentState.cityOffers.length.toString()} places to stay in {currentState.city}</b>
+                <FilterForm filterTypes={Object.values(FilterType)} handleOfferSort={handleCurrentSortType}></FilterForm>
+                <div className="cities__places-list places__list tabs__content">
+                  <OfferList offerCards={currentState.cityOffers.map((offer) => ({onListItemHover: handleListItemHover, ...offer}))} sortedBy={currentSortType}/>
+                </div>
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map city={currentState.cityOffers[0].city} points={points} selectedPoint={selectedPoint} height='800px' width='520px'/>;
+                </section>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </main>
     </div>
