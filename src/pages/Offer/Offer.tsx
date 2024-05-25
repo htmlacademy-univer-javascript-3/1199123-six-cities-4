@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { fetchReviewComments, fetchSingleOffer, updateFavorite } from '../../api/api-action';
 import { setLoadingStatus } from '../../store/actions/offer-actions';
 import ReviewForm from '../../components/reviews/review-form';
-import { Header } from '../../components/header/header';
+import { Header } from '../../components/header/Header';
 import { Points } from '../../types/point';
 import { FavouritesStatus } from '../../types/favorites';
 import { updateFavoritesCount } from '../../store/actions/favorites-actions';
