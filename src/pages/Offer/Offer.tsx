@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { ReviewsList } from '../../components/reviews/reviews-list';
 import { OfferType } from '../../types/offer';
-import { NotFoundPage } from '../not-found-screen/not-found-screen';
+// import { NotFoundPage } from '../not-found-screen/not-found-screen';
 import { Map } from '../../components/map/map';
 import { OffersNearby } from '../../components/offers/offers-nearby';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
@@ -16,6 +16,7 @@ import { FavouritesStatus } from '../../types/favorites';
 import { updateFavoritesCount } from '../../store/actions/favorites-actions';
 import { AuthorizationStatus } from '../../const';
 import { sortReviewsByDate } from '../../utils';
+import Spinner from '../loading-screen/loading-screen';
 
 type OfferProps = {
   offers: OfferType[];
@@ -41,7 +42,7 @@ export function Offer({ offers }: OfferProps): JSX.Element {
 
   if (!currentOffer) {
     return (
-      <NotFoundPage/>
+      <Spinner/>
     );
   }
 
