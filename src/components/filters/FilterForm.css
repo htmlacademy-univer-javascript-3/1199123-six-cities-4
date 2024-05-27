@@ -1,0 +1,42 @@
+.places__sorting {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 14px;
+}
+
+.places__sorting-caption {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.places__sorting-type {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  position: relative;
+  z-index: 1000;
+}
+
+.places__sorting-type:hover {
+  background-color: #f0f0f0;
+}
+
+.places__sorting-type:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.places__sorting-arrow {
+  margin-left: 5px;
+  transition: transform 0.3s;
+}
+
+.places__sorting-arrow.open {
+  transform: rotate(180deg);
+}

@@ -1,3 +1,5 @@
+import './FilterList.css';
+
 import { FilterOption } from './filter-option';
 
 type FilterListProps = {

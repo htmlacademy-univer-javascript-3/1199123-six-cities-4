@@ -1,0 +1,41 @@
+.placesoptions {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  z-index: 1000;
+}
+
+.placesoptions--custom {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.placesoptions--opened {
+  display: block;
+}
+
+.placesoption {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.placesoption:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.placesoption--selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.placesoption--selected:hover {
+  background-color: #0056b3;
+}
