@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 module.exports = {
   env: { browser: true, es2022: true },
   extends: [
@@ -21,4 +19,5 @@ module.exports = {
       rules: { '@typescript-eslint/unbound-method': 'off' }
     },
   ],
+  ignorePatterns: [".eslintrc.cjs", "vite.config.ts", "playwright.config.ts", "/pwt-tests/"]
 }

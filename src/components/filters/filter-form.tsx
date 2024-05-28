@@ -1,3 +1,4 @@
+import './FilterForm.css';
 import { useState } from 'react';
 import { FilterList } from './filter-list';
 
@@ -23,7 +24,7 @@ export function FilterForm({ filterTypes, handleOfferSort }: FilterFormProps): J
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0} onClick={openList}>
         {currentFilter}
-        <svg className="places__sorting-arrow" width="7" height="4">
+        <svg className={`places__sorting-arrow ${isListOpen ? 'open' : ''}`} width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
