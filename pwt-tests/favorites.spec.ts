@@ -145,7 +145,6 @@ test.describe('Favorites page and button tests -- authorized', () => {
     console.log(isSelected)
 
     await page.goto('./favorites');
-    await page.waitForSelector('.favorites__places');
 
     if (isSelected) {
       await page.locator('.place-card__bookmark-button').first().click();
@@ -156,7 +155,7 @@ test.describe('Favorites page and button tests -- authorized', () => {
 
 
   test('should return the nothing-yet-saved message if favorites is empty', async ({ page }) => {
-    await page.fill('input[name=email]', 'nothing@example.com');
+    await page.fill('input[name=email]', 'nothingused@example.com');
     await page.fill('input[name=password]', 'sm05');
     await page.click('button[type=submit]');
     await page.waitForURL('./');
