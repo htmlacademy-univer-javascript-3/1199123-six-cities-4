@@ -116,42 +116,62 @@ test.describe('Favorites page and button tests -- authorized', () => {
   });
 
   test('should delete items from favorites page', async ({ page }) => {
-
+  
     await page.fill('input[name=email]', 'yo@example.com');
     await page.fill('input[name=password]', 'p123');
     await page.click('button[type=submit]');
     await page.waitForURL('./');
 
+
     await page.waitForSelector('.cities__card');
+
 
     const isFavoriteSelected = async () => {
-      const favouriteButtonClassList = await page.locator('.place-card__bookmark-button').first().evaluate(
-        (el) => [...el.classList]
+      return await page.locator('.place-card__bookmark-button').first().evaluate(
+        (el) => el.classList.contains('place-card__bookmark-button--active')
       );
-      return favouriteButtonClassList.includes('place-card__bookmark-button--active');
     };
 
-    const getFavoriteCount = async () => parseInt((await page.locator('.header__favorite-count').textContent()) || '0');
+    const getFavoriteCount = async () => {
+      const countText = await page.locator('.header__favorite-count').textContent();
+      return parseInt(countText || '0');
+    };
 
+    // Click to add or remove favorite
     await page.locator('.place-card__bookmark-button').first().click();
 
-    await page.waitForSelector('.cities__card');
+
+    await page.waitForTimeout(5000);
+
 
     const initialCounter = await getFavoriteCount();
-
     const isSelected = await isFavoriteSelected();
 
-    console.log(initialCounter);
-    console.log(isSelected)
+    console.log(`Initial Counter: ${initialCounter}`);
+    console.log(`Is Selected: ${isSelected}`);
+
 
     await page.goto('./favorites');
+    await page.waitForURL('./favorites');
+
+    console.log(`Current URL: ${page.url()}`);
 
     if (isSelected) {
+
       await page.locator('.place-card__bookmark-button').first().click();
-      const updatedCounter = await getFavoriteCount();
-      expect(updatedCounter).toEqual(initialCounter - 1);
+
+
+      await page.waitForTimeout(1000);
+
+
+      const newCounter = await getFavoriteCount();
+      console.log(`New Counter: ${newCounter}`);
+      expect(newCounter).toEqual(initialCounter - 1);
     }
   });
+
+
+
 
 
   test('should return the nothing-yet-saved message if favorites is empty', async ({ page }) => {
@@ -160,9 +180,16 @@ test.describe('Favorites page and button tests -- authorized', () => {
     await page.click('button[type=submit]');
     await page.waitForURL('./');
 
-    await page.goto('./favorites');
+    await page.waitForTimeout(1000);
 
-    const nothingText = await page.getByTestId('nothingSaved').textContent();
-    expect(nothingText).toBe('Nothing yet saved');
+    await page.goto('./favorites');
+    await page.waitForURL('./favorites');
+
+    await page.waitForSelector('[data-testid=nothingSaved]', { timeout: 5000 });
+
+    const nothingSavedText = await page.locator('[data-testid=nothingSaved]').textContent();
+    console.log(`Nothing Saved Text: ${nothingSavedText}`);
+    expect(nothingSavedText).toBe('Nothing yet saved');
   });
+
 })

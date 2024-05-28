@@ -1,4 +1,4 @@
-import { test, expect, Locator } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 test.describe('Login Page', () => {
 
@@ -38,7 +38,9 @@ test.describe('Login Page', () => {
 
     expect(page.url()).toBe('http://localhost:5173/');
     await page.goto('./login');
-    await page.waitForURL('./');
+
+    await page.waitForTimeout(5000);
+
     expect(page.url()).toBe('http://localhost:5173/');
 });
 
