@@ -1,6 +1,9 @@
+import './Spinner.css';
+
 const Spinner = () => (
-  <div style={{ textAlign: 'center', padding: '50px' }}>
-    <div style={{ width: '50px', height: '50px', border: '5px solid gray', borderRadius: '50%', borderTopColor: 'transparent', animation: 'spin 1s linear infinite' }}>
+  <div className="spinner-overlay">
+    <div className="spinner-container">
+      <div className="spinner"></div>
     </div>
   </div>
 );

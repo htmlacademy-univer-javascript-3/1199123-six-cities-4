@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { OfferType } from '../../types/offer';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { updateFavorite } from '../../api/api-action';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { FavouritesStatus } from '../../types/favorites';
@@ -15,7 +15,7 @@ type OfferCardProps = {
 function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
   const { id, title, type, previewImage, price, rating, isFavorite, isPremium} = offer;
 
-  const [activeOffer, setActiveOffer] = useState<string>('');
+  const [, setActiveOffer] = useState<string>('');
   const [isFavoriteStatus, setIsFavoriteStatus] = useState<boolean>(isFavorite);
 
   const dispatch = useAppDispatch();
@@ -60,7 +60,7 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <a href={`/offer/${id}`} data-testid="placeImage">
           <img
             key={id}
             className="place-card__image"
@@ -99,7 +99,7 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${activeOffer}`}>{title}</Link>
+          <a href={`/offer/${id}`} data-testid="placeTitle">{title}</a>
         </h2>
         <p className="place-card__type">
           {type}
@@ -109,4 +109,4 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
   );
 }
 
-export default OfferCard;
+export default memo(OfferCard);

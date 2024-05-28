@@ -1,7 +1,7 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ReviewsList } from '../../components/reviews/reviews-list';
 import { OfferType } from '../../types/offer';
-import { NotFoundPage } from '../not-found-screen/not-found-screen';
+// import { NotFoundPage } from '../not-found-screen/not-found-screen';
 import { Map } from '../../components/map/map';
 import { OffersNearby } from '../../components/offers/offers-nearby';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
@@ -16,6 +16,7 @@ import { FavouritesStatus } from '../../types/favorites';
 import { updateFavoritesCount } from '../../store/actions/favorites-actions';
 import { AuthorizationStatus } from '../../const';
 import { sortReviewsByDate } from '../../utils';
+import Spinner from '../loading-screen/loading-screen';
 
 type OfferProps = {
   offers: OfferType[];
@@ -29,7 +30,7 @@ export function Offer({ offers }: OfferProps): JSX.Element {
   const currentReviews = useAppSelector((state) => state.offer.currentOfferReviews);
   const isAuthorized = useAppSelector((state) => state.user.authorizationStatus);
   const favoritesCount = useAppSelector((state) => state.favorites.favoritesCount);
-
+  const navigate = useNavigate();
   const [isFavorite, setIsFavorite] = useState(offer?.isFavorite);
   useEffect(() => {
     if (offer?.id) {
@@ -41,27 +42,31 @@ export function Offer({ offers }: OfferProps): JSX.Element {
 
   if (!currentOffer) {
     return (
-      <NotFoundPage/>
+      <Spinner/>
     );
   }
 
-  const handleIsFavorite = () => {
-    if (isFavorite) {
-      dispatch(updateFavorite({
-        id: currentOffer?.id,
-        status: FavouritesStatus.Delete
-      }));
-      setIsFavorite(false);
-      dispatch(updateFavoritesCount(favoritesCount - 1));
+  function handleIsFavorite() {
+    if (isAuthorized === AuthorizationStatus.Authorized) {
+      if (isFavorite) {
+        dispatch(updateFavorite({
+          id: offer?.id,
+          status: FavouritesStatus.Delete
+        }));
+        setIsFavorite(false);
+        dispatch(updateFavoritesCount(favoritesCount - 1));
+      } else {
+        dispatch(updateFavorite({
+          id: offer?.id,
+          status: FavouritesStatus.Add
+        }));
+        setIsFavorite(true);
+        dispatch(updateFavoritesCount(favoritesCount + 1));
+      }
     } else {
-      dispatch(updateFavorite({
-        id: currentOffer?.id,
-        status: FavouritesStatus.Add
-      }));
-      setIsFavorite(true);
-      dispatch(updateFavoritesCount(favoritesCount + 1));
+      navigate('/login');
     }
-  };
+  }
 
   const points: Points = offers.map((o) => ({
     name: o.id,
@@ -97,22 +102,20 @@ export function Offer({ offers }: OfferProps): JSX.Element {
                 <h1 className="offer__name">
                   {currentOffer?.title}
                 </h1>
-                {isAuthorized === AuthorizationStatus.Authorized && (
-                  <button
-                    className={`offer__bookmark-button ${
-                      isFavorite ? 'offer__bookmark-button--active' : ''
-                    } button`}
-                    type="button"
-                    onClick={handleIsFavorite}
-                  >
-                    <svg className="offer__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">
-                      {isFavorite ? 'In bookmarks' : 'To bookmarks'}
-                    </span>
-                  </button>
-                )}
+                <button
+                  className={`offer__bookmark-button ${
+                    isFavorite ? 'offer__bookmark-button--active' : ''
+                  } button`}
+                  type="button"
+                  onClick={handleIsFavorite}
+                >
+                  <svg className="offer__bookmark-icon" width="31" height="33">
+                    <use xlinkHref="#icon-bookmark"></use>
+                  </svg>
+                  <span className="visually-hidden">
+                    {isFavorite ? 'In bookmarks' : 'To bookmarks'}
+                  </span>
+                </button>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

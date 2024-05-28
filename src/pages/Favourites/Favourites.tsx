@@ -34,7 +34,7 @@ export function Favourites(): JSX.Element {
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">
             <section className="favorites">
-              <h1 className="favorites__title">Nothing yet saved</h1>
+              <h1 className="favorites__title" data-testid="nothingSaved">Nothing yet saved</h1>
             </section>
           </div>
         </main>

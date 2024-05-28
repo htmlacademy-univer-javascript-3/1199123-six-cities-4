@@ -29,7 +29,7 @@ export function Header(): JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Authorized) {
     loginManagement = (
       <li className="header__nav-item">
-        <a href='/login' className="header__nav-link" onClick={handleLogout}>
+        <a href='/' className="header__nav-link" onClick={handleLogout}>
           <span className="header__signout">Sign out</span>
         </a>
       </li>
