@@ -3,8 +3,9 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../hooks/use-map';
 import { City } from '../../types/city';
 import { Point } from '../../types/point';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 import 'leaflet/dist/leaflet.css';
+import pin from '../../../markup/img/pin.svg';
+import activePin from '../../../markup/img/pin-active.svg';
 
 type MapProps = {
   city: City;
@@ -15,13 +16,13 @@ type MapProps = {
 };
 
 const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
+  iconUrl: pin,
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
+  iconUrl: activePin,
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
