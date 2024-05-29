@@ -19,5 +19,5 @@ module.exports = {
       rules: { '@typescript-eslint/unbound-method': 'off' }
     },
   ],
-  ignorePatterns: [".eslintrc.cjs", "vite.config.ts", "playwright.config.ts", "/pwt-tests/"]
+  ignorePatterns: [".eslintrc.cjs", "vite.config.ts", "playwright.config.ts", "/pwt-tests"]
 }

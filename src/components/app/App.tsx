@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Main } from '../../pages/main/main.tsx';
+import { Main } from '../../pages/Main/Main.tsx';
 import { NotFoundPage } from '../../pages/not-found-screen/not-found-screen.tsx';
-import { Offer } from '../../pages/offer/offer.tsx';
-import { Login } from '../../pages/login/login.tsx';
-import { Favourites } from '../../pages/favourites/favourites.tsx';
+import { Offer } from '../../pages/Offer/Offer.tsx';
+import { Login } from '../../pages/Login/Login.tsx';
+import { Favourites } from '../../pages/Favourites/Favourites.tsx';
 import { PrivateRoute } from '../private-route/private-route.tsx';
 import { useAppSelector } from '../hooks/index.ts';
 import Spinner from '../../pages/loading-screen/loading-screen.tsx';
 
 
-function App(): JSX.Element {
+export default function App(): JSX.Element {
   const isLoading = useAppSelector((state) => state.offer.isLoading);
   const cityOffers = useAppSelector((state) => state.offer.cityOffers);
 
@@ -31,5 +31,3 @@ function App(): JSX.Element {
     </BrowserRouter>
   );
 }
-
-export default App;

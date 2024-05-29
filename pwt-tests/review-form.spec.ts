@@ -1,4 +1,4 @@
-import { test, expect, Locator } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 test.describe('Review form tests', () => {
   test('should not show review form to an unauthorized user', async ({ page }) => {

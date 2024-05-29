@@ -1,6 +1,6 @@
 import { OfferType } from '../../types/offer';
 import OfferCard from '../../components/offers/offer-card';
-import { Header } from '../../components/header/header';
+import { Header } from '../../components/header/Header';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
 import { useEffect } from 'react';
 import { fetchFavorites } from '../../api/api-action';

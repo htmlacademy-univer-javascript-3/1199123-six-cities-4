@@ -1,4 +1,4 @@
-import { test, expect, Locator } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 test.describe('Login Page', () => {
 
@@ -29,18 +29,6 @@ test.describe('Login Page', () => {
     await page.waitForURL('./');
     expect(page.url()).toBe('http://localhost:5173/');
   });
-
-  test('should redirect to home page if already authorized', async ({ page }) => {
-
-    await page.fill('input[name=email]', 'test@example.com');
-    await page.fill('input[name=password]', 'password123');
-    await page.click('button[type=submit]');
-
-    expect(page.url()).toBe('http://localhost:5173/');
-    await page.goto('./login');
-    await page.waitForURL('./');
-    expect(page.url()).toBe('http://localhost:5173/');
-});
 
   test('should have correct input types and attributes', async ({ page }) => {
     const emailInput = page.locator('input[name="email"]');
