@@ -181,7 +181,7 @@ export function Offer({ offers }: OfferProps): JSX.Element {
             <Map city={currentOffer?.city} points={points.slice(0, 4)} selectedPoint={selectedPoint} height='600px' width='1200px'/>
           </section>
         </section>
-        <OffersNearby offersNearby={offersNearby.slice(0, 4)}/>
+        <OffersNearby offersNearby={offersNearby.slice(0, 3)}/>
       </main>
     </div>
   );

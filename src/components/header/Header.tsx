@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import Spinner from '../../pages/loading-screen/loading-screen';
 import { AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../api/api-action';
 import { updateLogin } from '../../store/actions/user-actions';
+import { Link } from 'react-router-dom';
 
 export function Header(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
@@ -50,7 +50,7 @@ export function Header(): JSX.Element {
       </li>
     );
     userInformation = (
-      <Link to="/" className="header__nav-link header__nav-link--profile"></Link>
+      <a href="/" className="header__nav-link header__nav-link--profile"></a>
     );
   }
 
