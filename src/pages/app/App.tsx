@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Main } from '../../pages/main/Main';
-import { NotFoundPage } from '../../pages/not-found-screen/not-found-screen';
-import { Offer } from '../../pages/offer/Offer';
-import { Login } from '../../pages/login/Login';
-import { Favourites } from '../../pages/favourites/Favourites';
-import { PrivateRoute } from '../private-route/private-route';
-import { useAppSelector } from '../hooks/index.ts';
-import Spinner from '../../pages/loading-screen/loading-screen';
+import { Main } from '../main/Main.tsx';
+import { NotFoundPage } from '../not-found-screen/not-found-screen.tsx';
+import { Offer } from '../offer/Offer.tsx';
+import { Login } from '../login/Login.tsx';
+import { Favourites } from '../favourites/Favourites.tsx';
+import { PrivateRoute } from '../../components/private-route/private-route.tsx';
+import { useAppSelector } from '../../components/hooks/index.ts';
+import Spinner from '../loading-screen/loading-screen.tsx';
 
 
 function App(): JSX.Element {
