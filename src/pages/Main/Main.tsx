@@ -7,9 +7,9 @@ import { Cities } from '../../const';
 import LocationsList from '../../components/locations/locations-list';
 import { FilterType } from '../../const';
 import { FilterForm } from '../../components/filters/filter-form';
-import 'leaflet/dist/leaflet.css';
-import { Header } from '../../components/header/header';
+import { Header } from '../../components/header/Header';
 import MainEmpty from './main-empty';
+import 'leaflet/dist/leaflet.css';
 
 export function Main(): JSX.Element {
   const [currentState, setCurrentState] = useState(store.getState().offer);
