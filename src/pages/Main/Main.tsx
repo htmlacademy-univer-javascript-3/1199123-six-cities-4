@@ -11,6 +11,7 @@ import { Header } from '../../components/header/Header';
 import MainEmpty from './main-empty';
 import 'leaflet/dist/leaflet.css';
 
+
 export function Main(): JSX.Element {
   const [currentState, setCurrentState] = useState(store.getState().offer);
 
