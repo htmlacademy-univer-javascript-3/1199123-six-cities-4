@@ -16,6 +16,7 @@ import { updateFavoritesCount } from '../../store/actions/favorites-actions';
 import { AuthorizationStatus } from '../../const';
 import { sortReviewsByDate } from '../../utils';
 import Spinner from '../loading-screen/loading-screen';
+import { NotFoundPage } from '../not-found-screen/not-found-screen';
 
 type OfferProps = {
   offers: OfferType[];
@@ -38,6 +39,12 @@ export function Offer({ offers }: OfferProps): JSX.Element {
       dispatch(setLoadingStatus(false));
     }
   }, [dispatch, offer?.id]);
+
+  if (!offer) {
+    return (
+      <NotFoundPage/>
+    );
+  }
 
   if (!currentOffer) {
     return (
