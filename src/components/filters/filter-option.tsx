@@ -7,7 +7,7 @@ type FilterOptionProps = {
 
 export function FilterOption({ filterType, currentFilter, handleCurrentFilter, handleOfferSort}: FilterOptionProps): JSX.Element {
   return (
-    <li className={`placesoption ${currentFilter === filterType ? 'placesoption--active' : ''}`} tabIndex={0} onClick={() => {
+    <li className={`places__option ${currentFilter === filterType ? 'places__option--active' : ''}`} tabIndex={0} onClick={() => {
       handleCurrentFilter(filterType);
       handleOfferSort(filterType);
     }}

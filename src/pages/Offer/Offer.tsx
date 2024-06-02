@@ -74,13 +74,12 @@ export function Offer({ offers }: OfferProps): JSX.Element {
     }
   }
 
-  const points: Points = offers.map((o) => ({
-    name: o.id,
-    location: o.location
+  const offersNearby = offers.filter((o) => o !== offer).slice(0, 3);
+  const points: Points = offersNearby.concat(offer).map((item) => ({
+    id: item.id,
+    location: item.location
   }));
-
-  const selectedPoint = points.find((o) => o.name === offer?.id);
-  const offersNearby = offers.filter((o) => o !== offer);
+  const selectedPoint = points.find((o) => o.id === offer?.id);
 
   return (
     <div className="page">
@@ -135,10 +134,10 @@ export function Offer({ offers }: OfferProps): JSX.Element {
                   {currentOffer?.type.charAt(0).toUpperCase() + currentOffer?.type.slice(1)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {currentOffer?.bedrooms} Bedrooms
+                  {currentOffer?.bedrooms} {currentOffer?.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {currentOffer?.maxAdults} adults
+                  Max {currentOffer?.maxAdults} {currentOffer?.maxAdults > 1 ? 'adults' : 'adult'}
                 </li>
               </ul>
               <div className="offer__price">
@@ -185,10 +184,10 @@ export function Offer({ offers }: OfferProps): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={currentOffer?.city} points={points.slice(0, 4)} selectedPoint={selectedPoint} height='600px' width='1200px'/>
+            <Map city={currentOffer?.city} points={points} selectedPoint={selectedPoint} height='600px' width='1200px'/>
           </section>
         </section>
-        <OffersNearby offersNearby={offersNearby.slice(0, 3)}/>
+        <OffersNearby offersNearby={offersNearby}/>
       </main>
     </div>
   );

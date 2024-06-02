@@ -18,8 +18,8 @@ export function getMonthYear(date: string) {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const [year, month] = formattedDate.split('-').map((item) => parseInt(item, 10));
-  return `${months[month - 2]} ${year}`;
+  const [month, year] = formattedDate.split('-').slice(1, 3).map((item) => parseInt(item, 10));
+  return `${months[month - 1]} ${year}`;
 }
 
 export function sortReviewsByDate(reviews: Review[]): Review[] {

@@ -16,13 +16,13 @@ export function Main(): JSX.Element {
   const [currentState, setCurrentState] = useState(store.getState().offer);
 
   const points: Points = currentState.cityOffers.map((o) => ({
-    name: o.id,
+    id: o.id,
     location: o.location
   }));
 
   const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(points[0]);
   const handleListItemHover = (itemID: string) => {
-    const currentPoint = points.find((point) => point.name === itemID);
+    const currentPoint = points.find((point) => point.id === itemID);
     setSelectedPoint(currentPoint);
   };
 
