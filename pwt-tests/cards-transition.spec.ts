@@ -18,7 +18,7 @@ test.describe('Offer transition test', () => {
     await page.getByTestId('placeTitle').first().click()
     console.log(page.url());
     const response = await page.evaluate(async () => {
-      const res = await fetch('https://14.design.htmlacademy.pro/six-cities/offers'); // Replace with your actual API endpoint
+      const res = await fetch('https://14.design.htmlacademy.pro/six-cities/offers');
       return res.json();
     });
 
