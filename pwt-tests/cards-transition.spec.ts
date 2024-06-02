@@ -16,14 +16,16 @@ test.describe('Offer transition test', () => {
 
 
     await page.getByTestId('placeTitle').first().click()
+    console.log(page.url());
     const response = await page.evaluate(async () => {
-      const res = await fetch('https://14.design.htmlacademy.pro/six-cities/offers'); // Replace with your actual API endpoint
+      const res = await fetch('https://14.design.htmlacademy.pro/six-cities/offers');
       return res.json();
     });
 
     const firstId = response[0].id;
-    expect(`${page.url()}`).toContain(`http://localhost:5173/offer/${firstId}`);
+    expect(page.url()).toContain(`http://localhost:5173/offer/${firstId}`);
 
+    console.log(typeof page.url())
     const clickedCardTitle = await page.locator('.offer__name').textContent();
     const clickedCardPrice = await page.locator('.offer__price-value').textContent();
 

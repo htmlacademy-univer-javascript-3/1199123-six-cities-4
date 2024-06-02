@@ -1,7 +1,7 @@
 import { Location } from './city';
 
 export type Point = {
-  name: string;
+  id: string;
   location: Location;
 }
 

@@ -17,7 +17,7 @@ function LocationItem({ city, currentCity, setCurrentCity }: LocationItemProps):
   return (
     <li className="locations__item">
       <a
-        className={`locationsitem-link tabsitem ${currentCity === city ? 'tabs__item--active' : ''}`}
+        className={`locations__item-link tabs__item ${currentCity === city ? 'tabs__item--active' : ''}`}
         href="#" onClick={() => {
           dispatch(updateCity(city));
           handleCurrentState();

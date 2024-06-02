@@ -102,7 +102,7 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
           <Link to={`/offer/${id}`} data-testid="placeTitle">{title}</Link>
         </h2>
         <p className="place-card__type">
-          {type}
+          {type[0].toUpperCase() + type.substring(1)}
         </p>
       </div>
     </article>
