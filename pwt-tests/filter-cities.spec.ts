@@ -9,9 +9,9 @@ test.describe('Filters test', () => {
       return classList.includes('tabs__item--active');
     };
 
-    await page.waitForSelector('.locationsitem-link');
+    await page.waitForSelector('.locations__item-link');
 
-    const cities = await page.locator('.locationsitem-link').all();
+    const cities = await page.locator('.locations__item-link').all();
     for (const city of cities) {
       await city.click();
 
