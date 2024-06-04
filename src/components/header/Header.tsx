@@ -23,7 +23,6 @@ export function Header(): JSX.Element {
     return <Spinner/>;
   }
 
-
   let loginManagement;
   let userInformation;
   if (authorizationStatus === AuthorizationStatus.Authorized) {
