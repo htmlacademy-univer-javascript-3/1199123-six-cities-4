@@ -20,12 +20,15 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
 >(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(setLoadingStatus(true));
-
-    const { data } = await api.get<OfferType[]>('/offers');
-    dispatch(updateOffers(data));
-
-    dispatch(setLoadingStatus(false));
+    try {
+      const { data } = await api.get<OfferType[]>('/offers');
+      dispatch(updateOffers(data));
+      dispatch(setLoadingStatus(true));
+    } catch {
+      dispatch(updateOffers([]));
+    } finally {
+      dispatch(setLoadingStatus(false));
+    }
   },
 );
 
@@ -53,10 +56,15 @@ export const fetchReviewComments = createAsyncThunk<void, { id: string | undefin
 >(
   'data/fetchReviewComments',
   async ({ id }, {dispatch, extra: api}) => {
-    dispatch(setLoadingStatus(true));
-    const {data} = await api.get<Review[]>(`/comments/${id}`);
-    dispatch(updateReviewComments(data));
-    dispatch(setLoadingStatus(false));
+    try {
+      const {data} = await api.get<Review[]>(`/comments/${id}`);
+      dispatch(setLoadingStatus(true));
+      dispatch(updateReviewComments(data));
+    } catch {
+      dispatch(updateReviewComments([]));
+    } finally {
+      dispatch(setLoadingStatus(false));
+    }
   },
 );
 
@@ -90,12 +98,19 @@ export const loginAction = createAsyncThunk<void, AuthorizationData, {
 >(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    dispatch(setUserDataLoadingStatus(true));
-    const {data: {token}} = await api.post<UserData>('/login', {email, password});
-    dispatch(updateAuthorizationStatus(AuthorizationStatus.Authorized));
-    dispatch(updateLogin(email));
-    saveToken(token);
-    dispatch(setUserDataLoadingStatus(false));
+    try {
+      dispatch(setUserDataLoadingStatus(true));
+      const {data: {token}} = await api.post<UserData>('/login', {email, password});
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.Authorized));
+      dispatch(updateLogin(email));
+      saveToken(token);
+      dispatch(setUserDataLoadingStatus(false));
+    } catch {
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.NotAuthorized));
+      dispatch(setUserDataLoadingStatus(false));
+    } finally {
+      dispatch(setUserDataLoadingStatus(false));
+    }
   },
 );
 
