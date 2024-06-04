@@ -104,7 +104,6 @@ export const loginAction = createAsyncThunk<void, AuthorizationData, {
       dispatch(updateAuthorizationStatus(AuthorizationStatus.Authorized));
       dispatch(updateLogin(email));
       saveToken(token);
-      dispatch(setUserDataLoadingStatus(false));
     } catch {
       dispatch(updateAuthorizationStatus(AuthorizationStatus.NotAuthorized));
       dispatch(setUserDataLoadingStatus(false));
@@ -136,7 +135,7 @@ export const postReview = createAsyncThunk<void, ReviewData, {
   extra: AxiosInstance;
 }
 >(
-  'user/login',
+  'user/postReview',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
     dispatch(setUserDataLoadingStatus(true));
     await api.post<UserData>(`/comments/${id}`, {comment, rating});
