@@ -109,7 +109,7 @@ export function Offer({ offers }: OfferProps): JSX.Element {
                 </h1>
                 <button
                   className={`offer__bookmark-button ${
-                    isFavorite ? 'offer__bookmark-button--active' : ''
+                    isFavorite && isAuthorized === AuthorizationStatus.Authorized ? 'offer__bookmark-button--active' : ''
                   } button`}
                   type="button"
                   onClick={handleIsFavorite}
@@ -118,7 +118,7 @@ export function Offer({ offers }: OfferProps): JSX.Element {
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">
-                    {isFavorite ? 'In bookmarks' : 'To bookmarks'}
+                    {isFavorite && isAuthorized === AuthorizationStatus.Authorized ? 'In bookmarks' : 'To bookmarks'}
                   </span>
                 </button>
               </div>

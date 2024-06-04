@@ -12,12 +12,6 @@ export function Login(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Authorized) {
-      navigate('/');
-    }
-  });
-
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
@@ -29,6 +23,12 @@ export function Login(): JSX.Element {
       navigate('/');
     }
   };
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Authorized) {
+      navigate('/');
+    }
+  });
 
   return (
     <div className="page page--gray page--login">

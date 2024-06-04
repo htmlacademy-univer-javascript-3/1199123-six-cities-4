@@ -79,7 +79,7 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
           </div>
           <button
             className={`place-card__bookmark-button ${
-              isFavoriteStatus ? 'place-card__bookmark-button--active' : ''
+              isFavoriteStatus && authorizationStatus === AuthorizationStatus.Authorized ? 'place-card__bookmark-button--active' : ''
             } button`}
             type="button"
             onClick={handleIsFavorite}
@@ -88,7 +88,7 @@ function OfferCard({ offer, onListItemHover }: OfferCardProps): JSX.Element {
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">
-              {isFavoriteStatus ? 'In bookmarks' : 'To bookmarks'}
+              {isFavoriteStatus && authorizationStatus === AuthorizationStatus.Authorized ? 'In bookmarks' : 'To bookmarks'}
             </span>
           </button>
         </div>
