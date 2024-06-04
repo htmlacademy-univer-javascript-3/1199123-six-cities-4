@@ -21,9 +21,9 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
     try {
+      dispatch(setLoadingStatus(true));
       const { data } = await api.get<OfferType[]>('/offers');
       dispatch(updateOffers(data));
-      dispatch(setLoadingStatus(true));
     } catch {
       dispatch(updateOffers([]));
     } finally {
@@ -57,8 +57,8 @@ export const fetchReviewComments = createAsyncThunk<void, { id: string | undefin
   'data/fetchReviewComments',
   async ({ id }, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<Review[]>(`/comments/${id}`);
       dispatch(setLoadingStatus(true));
+      const {data} = await api.get<Review[]>(`/comments/${id}`);
       dispatch(updateReviewComments(data));
     } catch {
       dispatch(updateReviewComments([]));
@@ -101,9 +101,9 @@ export const loginAction = createAsyncThunk<void, AuthorizationData, {
     try {
       dispatch(setUserDataLoadingStatus(true));
       const {data: {token}} = await api.post<UserData>('/login', {email, password});
-      dispatch(updateAuthorizationStatus(AuthorizationStatus.Authorized));
       dispatch(updateLogin(email));
       saveToken(token);
+      dispatch(updateAuthorizationStatus(AuthorizationStatus.Authorized));
     } catch {
       dispatch(updateAuthorizationStatus(AuthorizationStatus.NotAuthorized));
       dispatch(setUserDataLoadingStatus(false));
